@@ -9,10 +9,10 @@ var formidable = require('formidable'),
 var validator = require('./lib/validator.js'),
 	view = require('./lib/view.js');
 
+
 var SERVER_PORT    = '8735',
 	SERVER_PUBLIC  = path.join(__dirname, 'public'),
 	SERVER_VIEWS   = path.join(__dirname, 'views');
-	
 
 
 function log(statCode, url, ip, err) {
@@ -26,92 +26,50 @@ function startServer() {
 	var form = new formidable.IncomingForm();
 	
 	http.createServer(function(req, res) {
+		var mode = 'html',
+			contentType = 'text/html';
+		
 
-		var path = url.parse(req.url).pathname;
-
-		if ( !view.getLanguage() ) {
-			view.setLanguage( view.getAcceptedLanguages(req.headers['accept-language']) );
-		}
-
-		switch(path) {
+		switch( url.parse(req.url).pathname ) {
 
 			case '/api/validate':
-				try {
-					form.parse(req, function(err, fields, files) {
-
-						var mimeType = (fields.callback && fields.callback !== '') ? 'text/javascript' : 'application/json';
-				
-						// URI
-						if (fields.uri && fields.uri !== '') {
-							console.log('uri');
-							res.writeHead(200, {'Content-Type': mimeType});
-						
-							validator.loadFromUri(fields.uri, function(err, data) {
-								if (err) {
-									res.end(
-										view.renderResult(err, validator)
-									);
-								} else {
-									validator.validate(data);
-									validator.checkMimeType();
-									validator.checkResources(function(){
-										res.end(
-											view.renderResult(validator.errors, validator)
-										);
-									});
-								}
-							});
-							return;
-						}
-
-						// Direct Input
-						if (fields.content && fields.content !== '') {
-							console.log('api');
-							validator.validate(fields.content);
-							// if (fields.callback) {
-								res.writeHead(200, {'Content-Type': mimeType});
-								res.end(
-									view.renderJson(validator.errors, validator)
-								);
-							// }
-							return;
-						}
-						// If we reach this point, something failed.
-						res.writeHead(404, {'Content-Type': 'text/html'});
-						res.end('Error 404: Please use correct API parameters. See <a href="/">Homepage</a> for details.');
-						
-					});
-				} catch (e) {
-					console.log(e);
-				}
-				break;
+				mode = 'api';
 			
 			case '/validate':
-
-				// We don't serve you kind
-				if (req.method !== 'POST') {
-					res.writeHead(302, {'Location': '/'});
-					res.end();
-					return;
-				}
 				try {
 					form.parse(req, function(err, fields, files) {
+					
+						// Set output method
+						if (mode === 'api') {
+							if (fields.callback && fields.callback !== '') {
+								mode = 'jsonp';
+								contentType = 'text/javascript';
+							} else {
+								mode = 'json';
+								contentType = 'application/json';
+							}
+						}
+						res.writeHead(200, {'Content-Type': contentType});
+
+						
 						// URI
 						if (fields.uri && fields.uri !== '') {
-							console.log('uri');
-							res.writeHead(200, {'Content-Type': 'text/html'});
-						
 							validator.loadFromUri(fields.uri, function(err, data) {
+								
 								if (err) {
+									console.log(err);
 									res.end(
-										view.renderResult(err, validator)
+										view.renderResult(mode, {errors: err})
 									);
 								} else {
 									validator.validate(data);
 									validator.checkMimeType();
 									validator.checkResources(function(){
 										res.end(
-											view.renderResult(validator.errors, validator)
+											view.renderResult(mode, {
+												errors: validator.errors,
+												resources: validator.invalidResources
+											})
 										);
 									});
 								}
@@ -121,14 +79,12 @@ function startServer() {
 
 
 						// File Upload
-						if (files.file && files.file.size !== 0 && files.file.type.indexOf('text/') === 0) {
-							console.log('upload');
-							res.writeHead(200, {'Content-Type': 'text/html'});
-					
+						if (files.file && files.file.size !== 0 && files.file.type.indexOf('text/') === 0)
+						{
 							fs.readFile(files.file.path, 'utf8', function(err, data){
 								if (data) { validator.validate(data); }
 								res.end(
-									view.renderResult(err ? 'ERR_LOAD_FILE' : validator.errors, validator)
+									view.renderResult(mode, {errors: err ? 'ERR_LOAD_FILE' : validator.errors})
 								);
 							});
 							return;
@@ -137,22 +93,19 @@ function startServer() {
 
 						// Direct Input
 						if (fields.content && fields.content !== '') {
-							console.log('direct input');
 							validator.validate(fields.content);
-							res.writeHead(200, {'Content-Type': 'text/html'});
 							res.end(
-								view.renderResult(validator.errors, validator)
+								view.renderResult(mode, {errors: validator.errors})
 							);
 							return;
 						}
 					
-						// If we reach this point, something failed.
-						res.writeHead(302, {'Location': '/'});
+						// If we reach this point, no valid parameters were passed.
+						// In case of bad requests: There is no place like home.
+						res.writeHead(400, {'Location': '/'});
 						res.end();
 					});
-				} catch (e) {
-					console.log(e);
-				}
+				} catch (e) {}
 				break;
 
 			case '/':
@@ -174,6 +127,13 @@ function startServer() {
 						log(404, req.url, req.ip, err);
 					});
 		}
+
+		// Process life vest. Just in case.
+		process.addListener('uncaughtException', function(err) {
+			util.puts('Caught exception: ' + err);
+			res.writeHead(500, {'Content-Type': 'text/plain'});
+			res.end('500 Internal Server Error');
+		});
 
 	}).listen(SERVER_PORT);
 	util.puts('Server running at port: ' + SERVER_PORT);
