@@ -1,6 +1,9 @@
 # Cache Manifest Validator
 
-A Node.js based validator for cache manifest files.
+A Node.js based validator for cache manifest files: [manifest-validator.com](http://manifest-validator.com)
+
+*Note:* This is my first Node.js project and I would be glad, if you leave some feedback or suggestions.  
+At the moment I'm not entirely happy with the code, but I'll learn and I'll improve. Promise.
 
 
 ## Requirements
@@ -11,7 +14,7 @@ A Node.js based validator for cache manifest files.
 
 ## Installation
 
-Having node.js and npm installed, run these commands:
+Having Node.js and npm installed, run these commands:
 
 	npm install formidable ejs paperboy
 	node app.js
