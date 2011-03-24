@@ -2,7 +2,19 @@
 
 A Node.js based validator for cache manifest files.
 
-Coming soon to a GitHub repository near you.
+
+## Requirements
+
+- [node.js](http://nodejs.org/)
+- [npm (Node Package Manager)](http://npmjs.org/)
+
+
+## Installation
+
+Having node.js and npm installed, run these commands:
+
+	npm install formidable ejs paperboy
+	node app.js
 
 
 # License
