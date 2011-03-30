@@ -57,7 +57,6 @@ function startServer() {
 							validator.loadFromUri(fields.uri, function(err, data) {
 								
 								if (err) {
-									console.log(err);
 									res.end(
 										view.renderResult(mode, {errors: err})
 									);
@@ -79,14 +78,20 @@ function startServer() {
 
 
 						// File Upload
-						if (files.file && files.file.size !== 0 && files.file.type.indexOf('text/') === 0)
+						if (files.file && files.file.size !== 0)
 						{
-							fs.readFile(files.file.path, 'utf8', function(err, data){
-								if (data) { validator.validate(data); }
-								res.end(
-									view.renderResult(mode, {errors: err ? 'ERR_LOAD_FILE' : validator.errors})
-								);
-							});
+							if (files.file.type.indexOf('text/') === 0) {
+								fs.readFile(files.file.path, 'utf8', function(err, data){
+									if (data) { validator.validate(data); }
+									res.end(
+										view.renderResult(mode, {errors: err ? 'ERR_LOAD_FILE' : validator.errors})
+									);
+								});
+							} else {
+									res.end(
+										view.renderResult(mode, {errors: 'ERR_INVALID_FILE'})
+									);
+							}	
 							return;
 						}
 

@@ -138,6 +138,9 @@
 				if (e.target.tagName === 'SPAN') { showTab( e.target.parentNode.hash.substr(1) ); }
 				e.preventDefault();
 			});
+			$('form').submit(function(e) {
+				if ( $('input:first-child, textarea:first-child', this).val() === '' ) { e.preventDefault(); }
+			});
 			showTab('validate-by-uri');
 		});
 	</script>
@@ -175,7 +178,7 @@
 					<% if (resources.hasOwnProperty(r)) { %>
 					<li>
 						Line <%= parseInt(r,10)+1 %>: <strong>Resource not found</strong><br />
-						<code><%= resources[r] %></code>
+						<pre><code><%= resources[r] %></code></pre>
 					</li>
 					<% } %>
 				<% } %>
