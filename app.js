@@ -5,8 +5,8 @@ var formidable = require('formidable'),
 	path = require('path'),
 	url = require('url'),
 	util = require('util');
-	
-var validator = require('./lib/validator.js'),
+
+var ManifestValidator = require('./lib/validator.js'),
 	view = require('./lib/view.js');
 
 
@@ -23,8 +23,6 @@ function log(statCode, url, ip, err) {
 
 
 function startServer() {
-	var form = new formidable.IncomingForm();
-	
 	http.createServer(function(req, res) {
 		var mode = 'html',
 			contentType = 'text/html';
@@ -36,12 +34,23 @@ function startServer() {
 				mode = 'api';
 			
 			case '/validate':
-				try {
-					form.parse(req, function(err, fields, files) {
-					
+				var fields = {},
+					files = {};
+
+				var form = new formidable.IncomingForm();
+				form
+					.on('field', function(field, value) {
+						if ( ['uri', 'directinput', 'callback'].indexOf(field) !== -1 && value !== '') { fields[field] = value; }
+					})
+					.on('file', function(field, file) {
+						if (field === 'upload') { files[field] = file; }
+					})
+					.on('end', function() {
+						var validator = new ManifestValidator();
+
 						// Set output method
 						if (mode === 'api') {
-							if (fields.callback && fields.callback !== '') {
+							if (fields.callback) {
 								mode = 'jsonp';
 								contentType = 'text/javascript';
 							} else {
@@ -53,9 +62,8 @@ function startServer() {
 
 						
 						// URI
-						if (fields.uri && fields.uri !== '') {
+						if (fields.uri) {
 							validator.loadFromUri(fields.uri, function(err, data) {
-								
 								if (err) {
 									res.end(
 										view.renderResult(mode, {errors: err})
@@ -78,10 +86,10 @@ function startServer() {
 
 
 						// File Upload
-						if (files.file && files.file.size !== 0)
+						if (files.upload && files.upload.size !== 0)
 						{
-							if (files.file.type.indexOf('text/') === 0) {
-								fs.readFile(files.file.path, 'utf8', function(err, data){
+							if (files.upload.type.indexOf('text/') === 0) {
+								fs.readFile(files.upload.path, 'utf8', function(err, data){
 									if (data) { validator.validate(data); }
 									res.end(
 										view.renderResult(mode, {errors: err ? 'ERR_LOAD_FILE' : validator.errors})
@@ -91,14 +99,14 @@ function startServer() {
 									res.end(
 										view.renderResult(mode, {errors: 'ERR_INVALID_FILE'})
 									);
-							}	
+							}
 							return;
 						}
 
 
 						// Direct Input
-						if (fields.content && fields.content !== '') {
-							validator.validate(fields.content);
+						if (fields.directinput) {
+							validator.validate(fields.directinput);
 							res.end(
 								view.renderResult(mode, {errors: validator.errors})
 							);
@@ -110,7 +118,7 @@ function startServer() {
 						res.writeHead(302, {'Location': '/'});
 						res.end();
 					});
-				} catch (e) {}
+				form.parse(req);
 				break;
 
 			case '/':
