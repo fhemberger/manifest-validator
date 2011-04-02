@@ -58,7 +58,7 @@
 			<p>Upload a document for validation:</p>
 			<form action="/validate" enctype="multipart/form-data" method="post">
 				<label title="Choose a local file to upload and validate" for="file">File:
-					<input type="file" id="file" size="30" name="file" />
+					<input type="file" id="upload" size="30" name="upload" />
 				</label>
 				<input type="submit" value="Check" />
 			</form>
@@ -68,7 +68,7 @@
 			<h2>Validate by Direct Input</h2>
 			<p title="Paste a complete cache manifest here">Enter the manifest to validate:</p>
 			<form action="/validate" method="post">
-				<textarea id="text" name="content" rows="12" cols="70"></textarea>
+				<textarea id="text" name="directinput" rows="12" cols="70"></textarea>
 				<input type="submit" value="Check" />
 			</form>
 		</fieldset>
