@@ -46,7 +46,6 @@ function startServer() {
 						if (field === 'upload') { files[field] = file; }
 					})
 					.on('end', function() {
-						console.log('request: ', util.inspect(files), util.inspect(fields));
 						var validator = new ManifestValidator();
 
 						// Set output method
@@ -89,7 +88,6 @@ function startServer() {
 						// File Upload
 						if (files.upload && files.upload.size !== 0)
 						{
-							// console.log(files.upload.name, files.upload.path);
 							if (files.upload.type.indexOf('text/') === 0) {
 								fs.readFile(files.upload.path, 'utf8', function(err, data){
 									if (data) { validator.validate(data); }
