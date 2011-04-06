@@ -59,7 +59,7 @@ function startServer() {
 								contentType = 'application/json';
 							}
 						}
-						res.writeHead(200, {'Content-Type': contentType});
+						res.writeHead(200, {'Content-Type': contentType + '; charset=utf-8'});
 
 						
 						// URI
@@ -124,7 +124,7 @@ function startServer() {
 				break;
 
 			case '/':
-				res.writeHead(200, {'Content-Type': 'text/html'});
+				res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
 				res.end( view.renderView({view: 'index'}) );
 				break;
 
@@ -137,7 +137,7 @@ function startServer() {
 						log(statCode, req.url, req.ip, msg);
 					})
 					.otherwise(function(err) {
-						res.writeHead(404, {'Content-Type': 'text/html'});
+						res.writeHead(404, {'Content-Type': 'text/html; charset=utf-8'});
 						res.end('Error 404: File not found.<br />Back to <a href="/">Homepage</a>.');
 						log(404, req.url, req.ip, err);
 					});
@@ -146,7 +146,7 @@ function startServer() {
 		// Process life vest. Just in case.
 		process.addListener('uncaughtException', function(err) {
 			util.puts('Caught exception: ' + err);
-			res.writeHead(500, {'Content-Type': 'text/plain'});
+			res.writeHead(500, {'Content-Type': 'text/plain; charset=utf-8'});
 			res.end('500 Internal Server Error');
 		});
 
