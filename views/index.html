@@ -33,7 +33,7 @@
 		<a href="/">Cache Manifest Validator</a>
 		<span>Check your appcache for offline storage</span>
 	</h1>
-	<a href="http://github.com/fhemberger/manifest-validator"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://assets1.github.com/img/e6bef7a091f5f3138b8cd40bc3e114258dd68ddf?repo=&amp;url=http%3A%2F%2Fs3.amazonaws.com%2Fgithub%2Fribbons%2Fforkme_right_red_aa0000.png" width="149" height="149" alt="Fork me on GitHub"></a>
+	<a href="http://github.com/fhemberger/manifest-validator"><img style="position: absolute; top: 0; right: 0; border: 0;" src="/fork-me-on-github.png" width="149" height="149" alt="Fork me on GitHub"></a>
 
 	<% if (view === 'index') { %>
 	<ul id="tab-header">
@@ -88,18 +88,18 @@
 			<!--include:twitter-->
 		</div>
 		<div class="right">
-<!--
 			<h3>API</h3>
-			<p>This validation service can also be used by external tools. Either provide an URI to your manifest or the file's content as a string. The API either returns a JSON string or a JavaScript function for <a href="http://en.wikipedia.org/wiki/JSON#JSONP">JSONP</a>, when you provide the optional callback parameter.</p>
+			<p>This validation service can also be used by external tools. Either provide an URI to your manifest or the file's content as a string (GET and POST are supported for calling). The API either returns a JSON string or a JavaScript function for <a href="http://en.wikipedia.org/wiki/JSON#JSONP">JSONP</a>, when you provide the optional callback parameter.</p>
+			<p>Read the <a href="">Cache Manifest Validator API documentation</a> on GitHub.<p>
+<!--
 			<h4>Examples:</h4>
 		
 			<pre><code>http://manifest-validator.com/api/validate?uri=<span>http://www.example.com/cache.manifest</span></code></pre>
 			<p><code>=> {"isValid": false, "errors": [&hellip;], "resources": [&hellip;]}</code></p>
 		
 			<pre><code>http://manifest-validator.com/api/validate?content=<span>INVALID%20CACHE%20MANIFEST</span>&amp;callback=<span>myFunction</span></code></pre>
-			<p><code>=> myFunction({"isValid": false, "errors": [&hellip;], "resources": [&hellip;]})</code></p>
+			<p><code>=> myFunction({"isValid": false, "errors": [&hellip;]})</code></p>
 -->
-
 			<h3>Textmate Bundle</h3>
 			<p>I've also created a TextMate bundle with a default manifest template and a connection to this validation service. It is available at <a href="https://github.com/fhemberger/CacheManifest.tmbundle/">GitHub</a> and can also be <a href="https://github.com/fhemberger/CacheManifest.tmbundle/zipball/master">downloaded directly</a>.</p>
 		</div>
