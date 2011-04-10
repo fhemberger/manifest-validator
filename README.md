@@ -22,6 +22,8 @@ Having Node.js and npm installed, run these commands:
 
 # License
 
+(The MIT-License)
+
 Copyright (c) 2011 Frederic Hemberger
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
