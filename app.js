@@ -4,13 +4,24 @@ var	http = require('http'),
 	url = require('url'),
 	util = require('util');
 
-var ManifestValidatorAPI = require('./lib/api.js'),
+var api = require('./lib/api.js'),	
 	view = require('./lib/view.js');
 
 
 var SERVER_PORT    = '8735',
 	SERVER_PUBLIC  = path.join(__dirname, 'public'),
 	SERVER_VIEWS   = path.join(__dirname, 'views');
+
+
+// Process life vest. Just in case.
+var httpResponse = null;
+process.addListener('uncaughtException', function(err) {
+	log(500, err);
+	if (httpResponse !== null) {
+		httpResponse.writeHead(500, {'Content-Type': 'text/plain; charset=utf-8'});
+		httpResponse.end('500 Internal Server Error');
+	}
+});
 
 
 function log(statusCode, message) {
@@ -23,6 +34,8 @@ function startServer() {
 		var self = this,
 			mode = 'html';
 
+		httpResponse = res;
+
 		switch( url.parse(req.url).pathname ) {
 
 			case '/api/validate':
@@ -30,8 +43,8 @@ function startServer() {
 			
 			case '/validate':
 
-				var api = new ManifestValidatorAPI(req, res, function(result) {
-					var contentType = 'text/html',
+				api.parse(req, function(result) {
+						var contentType = 'text/html',
 						body = '';
 						
 					switch (mode) {
@@ -43,11 +56,11 @@ function startServer() {
 						case 'json':
 							contentType = 'application/json';
 							body = JSON.stringify(result);
-							if (!api || (api && !api.jsonp)) { break; }
+							if (!api.isJSONP()) { break; }
 
 						case 'jsonp':
 							contentType = 'text/javascript';
-							body = api.callbackName + '(' + body + ')';
+							body = api.getJSONPCallbackName() + '(' + body + ')';
 							break;
 					}
 
@@ -76,12 +89,6 @@ function startServer() {
 					});
 		}
 
-		// Process life vest. Just in case.
-		process.addListener('uncaughtException', function(err) {
-			log(500, err);
-			res.writeHead(500, {'Content-Type': 'text/plain; charset=utf-8'});
-			res.end('500 Internal Server Error');
-		});
 
 	}).listen(SERVER_PORT);
 	util.puts('Server running at port: ' + SERVER_PORT);
