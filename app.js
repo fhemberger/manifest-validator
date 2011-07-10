@@ -64,8 +64,12 @@ function startServer() {
 							break;
 					}
 
-					res.writeHead(200, {'Content-Type': contentType + '; charset=utf-8'});
-					res.end(body);	
+					res.writeHead(200, {
+						'Content-Type': contentType + '; charset=utf-8',
+						'Access-Control-Allow-Origin': '*',
+						'Access-Control-Allow-Headers': 'X-Requested-With'
+					});
+					res.end(body);
 				});
 				break;
 
