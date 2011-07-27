@@ -1,0 +1,42 @@
+!!!
+html
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+
+    - var titlePrefix = ''
+    - if (view === 'result') titlePrefix = isValid ? '[Valid] ' : '[Invalid] '
+    title #{titlePrefix}Cache Manifest Validator
+
+    meta(name="description", content="Validate your HTML5 Appcache online: Cache Manifest Validator for web application offline storage.")
+    meta(name="keywords",    content="cache, manifest, cache manifest, application cache, validation, offline, html5")
+    meta(name="author",      content="Frederic Hemberger")
+    meta(name="robots",      content="index, follow")
+
+    - if (view === 'index')
+      link(rel="icon", href="/favicon.ico")
+    - else if (view === 'result')
+      - if (isValid)
+        - var icon = "data:image/png,%89PNG%0D%0A%1A%0A%00%00%00%0DIHDR%00%00%00%10%00%00%00%10%08%02%00%00%00%90%91h6%00%00%00%19IDAT(%91c%0C%DD%10%C5%40%0A%60%22I%F5%A8%86Q%0DCJ%03%00dy%01%7F%0C%9F0%7D%00%00%00%00IEND%AEB%60%82"
+      - else
+        - var icon = "data:image/png,%89PNG%0D%0A%1A%0A%00%00%00%0DIHDR%00%00%00%10%00%00%00%10%08%02%00%00%00%90%91h6%00%00%00%19IDAT(%91c%BCd%AB%C2%40%0A%60%22I%F5%A8%86Q%0DCJ%03%00%DE%B5%01S%07%88%8FG%00%00%00%00IEND%AEB%60%82"
+      link(rel="icon", href="#{icon}", type="image/png")
+
+    link(rel="stylesheet", href="/validator.css")
+  body
+    h1
+      a(href="/") Cache Manifest Validator
+      span Check your appcache for offline storage
+
+    a(href="http://github.com/fhemberger/manifest-validator")
+      img(style="position: absolute; top: 0; right: 0; border: 0;", src="/fork-me-on-github.png", width="149", height="149", alt="Fork me on GitHub")
+
+    !{body}
+
+  #footer
+    :markdown
+      Cache Manifest Validator by [Frederic Hemberger](http://frederic-hemberger.de). Powered by [NodeJS](http://nodejs.org/), running on [Uberspace](http://uberspace.de/).  
+      Licenced under the [MIT License](http://www.opensource.org/licenses/mit-license), source code available at [GitHub](https://github.com/fhemberger/manifest-validator/).
+
+  include _analytics

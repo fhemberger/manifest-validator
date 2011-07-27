@@ -1,102 +1,47 @@
-var	http = require('http'),
-	paperboy = require('paperboy'),
-	path = require('path'),
-	url = require('url'),
-	util = require('util');
+var express = require('express'),
+    form = require('connect-form');
 
-var api = require('./lib/api.js'),	
-	view = require('./lib/view.js');
+var api = require('./lib/api.js');
 
 
-var SERVER_PORT    = '8735',
-	SERVER_PUBLIC  = path.join(__dirname, 'public'),
-	SERVER_VIEWS   = path.join(__dirname, 'views');
+var app = module.exports = express.createServer(
+  form({ keepExtensions: true })
+);
 
 
-// Process life vest. Just in case.
-var httpResponse = null;
-process.addListener('uncaughtException', function(err) {
-	log(500, err);
-	if (httpResponse !== null) {
-		httpResponse.writeHead(500, {'Content-Type': 'text/plain; charset=utf-8'});
-		httpResponse.end('500 Internal Server Error');
-	}
+// Configuration
+app.configure(function() {
+  app.set('views', __dirname + '/views');
+  app.set('view engine', 'jade');
+  app.use(express.bodyParser());
+  app.use(express.methodOverride());
+  app.use(app.router);
+  app.use(express.static(__dirname + '/public'));
+});
+
+app.configure('development', function() {
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
+});
+
+app.configure('production', function() {
+  app.use(express.errorHandler()); 
 });
 
 
-function log(statusCode, message) {
-	util.log( statusCode + ' - ' + Array.isArray(message) ? message.join(' - ') : message );
-}
+// Routes
+app.post(/^(\/api)?\/validate/, function(req, res) {
+  api.dispatch(req, res);
+});
+
+app.get(/^(\/api)?\/validate/, function(req, res) {
+  if (req.params[0] === '/api') { api.dispatch(req, res); return; }
+  res.redirect('/');
+});
+
+app.get('/', function(req, res) {
+  res.render('index', {view: 'index'});
+});
 
 
-function startServer() {
-	http.createServer(function(req, res) {
-		var self = this,
-			mode = 'html';
-
-		httpResponse = res;
-
-		switch( url.parse(req.url).pathname ) {
-
-			case '/api/validate':
-				mode = 'json';
-			
-			case '/validate':
-
-				api.parse(req, function(result) {
-						var contentType = 'text/html',
-						body = '';
-						
-					switch (mode) {
-						case 'html':
-							result.view = 'result';
-							body = view.renderView(result);
-							break;
-
-						case 'json':
-							contentType = 'application/json';
-							body = JSON.stringify(result);
-							if (!api.isJSONP()) { break; }
-
-						case 'jsonp':
-							contentType = 'text/javascript';
-							body = api.getJSONPCallbackName() + '(' + body + ')';
-							break;
-					}
-
-					res.writeHead(200, {
-						'Content-Type': contentType + '; charset=utf-8',
-						'Access-Control-Allow-Origin': '*',
-						'Access-Control-Allow-Headers': 'X-Requested-With'
-					});
-					res.end(body);
-				});
-				break;
-
-			case '/':
-				res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
-				res.end( view.renderView({view: 'index'}) );
-				break;
-
-			default:
-				paperboy
-					.deliver(SERVER_PUBLIC, req, res)
-					.addHeader('Expires', 300)
-					.addHeader('X-PaperRoute', 'Node')
-					.error(function(statCode, msg) {
-						log(statCode, [req.url, req.ip, msg]);
-					})
-					.otherwise(function(err) {
-						res.writeHead(404, {'Content-Type': 'text/html; charset=utf-8'});
-						res.end('Error 404: File not found.<br />Back to <a href="/">Homepage</a>.');
-						log(404, [req.url, req.ip, err]);
-					});
-		}
-
-
-	}).listen(SERVER_PORT);
-	util.puts('Server running at port: ' + SERVER_PORT);
-}
-
-
-view.loadView( path.join(SERVER_VIEWS, 'index.html'), startServer());
+app.listen(8735);
+console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

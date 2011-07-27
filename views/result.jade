@@ -1,0 +1,32 @@
+- if (isValid)
+  h2(class="result valid") This document was successfully checked
+  a(href="/", class="home") Return to Homepage
+- else
+  h2(class="result invalid") Error found while checking this document
+  
+  - if (errors.length)
+    h3 Validation Results:
+    - if (typeof errors === 'string')
+      p #{lang[errors]}
+    - else
+      ul
+      - for (var e in errors)
+        li Line #{parseInt(e,10)+1}:
+          strong #{lang[errors[e].error]}
+          br
+          - if (errors[e].content)
+            pre
+              code #{errors[e].content}
+
+  - if (resources.length)
+    h3 Resource Check Results:
+    ul
+      - for (var r in resources)
+        li Line #{parseInt(r,10)+1}: 
+          strong Resource not found
+          br
+          pre
+            code #{resources[r]}
+
+  a(href="/", class="home") Return to Homepage
+
