@@ -10,13 +10,13 @@
       p #{lang[errors]}
     - else
       ul
-      - for (var e in errors)
-        li Line #{parseInt(e,10)+1}:
-          strong #{lang[errors[e].error]}
-          br
-          - if (errors[e].content)
-            pre
-              code #{errors[e].content}
+        - for (var e in errors)
+          li Line #{parseInt(e,10)+1}: 
+            strong #{lang[errors[e].error]}
+            br
+            - if (errors[e].content)
+              pre
+                code #{errors[e].content}
 
   - if (resources.length)
     h3 Resource Check Results:
