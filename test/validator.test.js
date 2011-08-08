@@ -93,6 +93,22 @@ exports['Validate'] = {
     test.done();
   },
 
+  'FALLBACK: Same origin policy': function(test) {
+    var validator = new ManifestValidator();
+    validator.validate("CACHE MANIFEST\nFALLBACK:\n/ https://127.0.0.1/");
+    test.equal(validator.errors.length, 3);
+    test.equal(validator.errors[2].error, 'ERR_FALLBACK_SAME_ORIGIN');
+    test.done();
+  },
+
+  'NETWORK: Same URI sheme': function(test) {
+    var validator = new ManifestValidator();
+    validator.validate("CACHE MANIFEST\nNETWORK:\nhttps://127.0.0.1/");
+    test.equal(validator.errors.length, 3);
+    test.equal(validator.errors[2].error, 'ERR_WHITELIST_SAME_SHEME');
+    test.done();
+  },
+
   'Valid manifest header': function(test) {
     var validator = new ManifestValidator();
     validator.validate('CACHE MANIFEST');
