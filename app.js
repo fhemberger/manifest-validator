@@ -1,7 +1,8 @@
-var express = require('express'),
-    form = require('connect-form');
+/*jshint node:true, strict:false */
 
-var api = require('./lib/api.js');
+var express            = require('express'),
+    form               = require('connect-form'),
+    manifestController = require('./lib/manifest_controller.js');
 
 
 var app = module.exports = express.createServer(
@@ -15,33 +16,43 @@ app.configure(function() {
   app.set('view engine', 'jade');
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(app.router);
   app.use(express.static(__dirname + '/public'));
+  app.use(app.router);
 });
 
 app.configure('development', function() {
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
 app.configure('production', function() {
-  app.use(express.errorHandler()); 
+  app.use(express.errorHandler());
 });
 
 
-// Routes
+// -- Routes ------------------------------------------------------------------
+// POST: Form & API
 app.post(/^(\/api)?\/validate/, function(req, res) {
-  api.dispatch(req, res);
+  var output = (req.params && req.params[0]) ? 'api' : 'web';
+  manifestController.dispatch(output, req, res);
 });
 
-app.get(/^(\/api)?\/validate/, function(req, res) {
-  if (req.params[0] === '/api') { api.dispatch(req, res); return; }
-  res.redirect('/');
+// GET: API
+app.get('/api/validate', function(req, res) {
+  manifestController.dispatch('api', req, res);
+});
+
+// Don't call the result page directly
+app.get('/validate', function(req, res) {
+  redirect('/');
 });
 
 app.get('/', function(req, res) {
   res.render('index', {view: 'index'});
 });
 
+app.get('*', function(req, res) {
+  res.redirect('/');
+});
 
 app.listen(8735);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

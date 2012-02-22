@@ -3,7 +3,7 @@
   a(href="/", class="home") Return to Homepage
 - else
   h2(class="result invalid") Error found while checking this document
-  
+
   - if (errors.length)
     h3 Validation Results:
     - if (typeof errors === 'string')
@@ -11,7 +11,7 @@
     - else
       ul
         - for (var e in errors)
-          li Line #{parseInt(e,10)+1}: 
+          li Line #{parseInt(e,10)+1}:
             strong #{lang[errors[e].error]}
             br
             - if (errors[e].content)
@@ -22,7 +22,7 @@
     h3 Resource Check Results:
     ul
       - for (var r in resources)
-        li Line #{parseInt(r,10)+1}: 
+        li Line #{parseInt(r,10)+1}:
           strong Resource not found
           br
           pre

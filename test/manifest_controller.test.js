@@ -1,5 +1,5 @@
 var nodeunit = require('nodeunit'),
-    api = require('../lib/api.js');
+    manifestController = require('../lib/manifest_controller.js');
 
 var ASYNC_TIMEOUT = 1000;
 
@@ -32,19 +32,17 @@ var _res = {
 exports['Invalid call'] = {
   'No parameter': function(test) {
     var req=_req, res=_res;
-    req.params[0] = '/api';
 
-    api.dispatch(req, res);
+    manifestController.dispatch('api', req, res);
     test.equal(res.testResult.errors, "ERR_INVALID_API_CALL");
     test.done();
   },
-  
+
   'Unknown parameter': function(test) {
     var req=_req, res=_res;
-    req.params[0] = '/api';
     req.body = { unknownparameter: true };
 
-    api.dispatch(req, res);
+    manifestController.dispatch('api', req, res);
     test.equal(res.testResult.errors, "ERR_INVALID_API_CALL");
     test.done();
   }
@@ -55,11 +53,10 @@ exports['Invalid call'] = {
 exports['URI'] =  {
   'Invalid URI': function(test) {
     var req=_req, res=_res;
-    req.params[0] = '/api';
     req.body = { uri: 'http://www.example.com/' };
     req.form = undefined;
 
-    api.dispatch(req, res);
+    manifestController.dispatch('api', req, res);
     setTimeout(function() {
       test.equal(res.testResult.isValid, false);
       test.done();
@@ -76,13 +73,12 @@ exports['URI'] =  {
 exports['Upload'] = {
   'Invalid file': function(test) {
     var req=_req, res=_res;
-    req.params[0] = '/api';
     req.body = undefined;
     req.form = {
       complete: function(callback) {callback(true); }
     };
 
-    api.dispatch(req, res);
+    manifestController.dispatch('api', req, res);
     test.equal(res.testResult.isValid, false);
     test.equal(res.testResult.errors, 'ERR_INVALID_FILE');
     test.done();
@@ -98,22 +94,20 @@ exports['Upload'] = {
 exports['Direct input'] = {
   'Invalid manifest': function(test) {
     var req=_req, res=_res;
-    req.params[0] = '/api';
     req.body = { directinput: 'INVALID CACHE MANIFEST' };
     req.form = undefined;
 
-    api.dispatch(req, res);
+    manifestController.dispatch('api', req, res);
     test.equal(res.testResult.isValid, false);
     test.done();
   },
-  
+
   'Valid manifest': function(test) {
     var req=_req, res=_res;
-    req.params[0] = '/api';
     req.body = { directinput: "CACHE MANIFEST" };
     req.form = undefined;
 
-    api.dispatch(req, res);
+    manifestController.dispatch('api', req, res);
     test.equal(res.testResult.isValid, true);
     test.done();
   }
@@ -124,28 +118,26 @@ exports['Direct input'] = {
 exports['JSONP callback'] = {
   'Invalid callback name, falling back to default': function(test) {
     var req=_req, res=_res;
-    req.params[0] = '/api';
     req.body = {
       callback: 'this',
       directinput: "CACHE MANIFEST"
     };
     req.form = undefined;
 
-    api.dispatch(req, res);
+    manifestController.dispatch('api', req, res);
     test.equal(res.testResult, 'callback');
     test.done();
   },
 
   'Valid callback name': function(test) {
     var req=_req, res=_res;
-    req.params[0] = '/api';
     req.body = {
       callback: 'myCallbackName',
       directinput: "CACHE MANIFEST"
     };
     req.form = undefined;
 
-    api.dispatch(req, res);
+    manifestController.dispatch('api', req, res);
     test.equal(res.testResult, req.body.callback);
     test.done();
   }
