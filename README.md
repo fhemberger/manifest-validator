@@ -16,10 +16,22 @@ If you're looking for an easy way to create a manifest file for an existing proj
 
 Having Node.js and npm installed, run these commands:
 
-	npm install connect-form express jade markdown-js request
+	npm install .
 	node app.js
 
 For running the tests, you also need the `nodeunit` package.
+
+
+## API
+
+The validation service can also be used by external tools. Either provide an URI to your manifest or the file's content as a string (GET and POST are supported). The API either returns a JSON or [JSONP](http://en.wikipedia.org/wiki/JSON#JSONP), when you provide the optional callback parameter.
+
+Read the [Cache Manifest Validator API documentation](https://github.com/fhemberger/manifest-validator/wiki/API-Documentation).
+
+
+## Textmate Bundle
+
+I've also created a [TextMate bundle](https://github.com/fhemberger/CacheManifest.tmbundle/) with a default manifest template and a connection to the validation service.
 
 
 ## License
