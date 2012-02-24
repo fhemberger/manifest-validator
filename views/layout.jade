@@ -25,18 +25,18 @@ html
 
     link(rel="stylesheet", href="/validator.css")
   body
-    h1
+    h1(role="banner")
       a(href="/") Cache Manifest Validator
       span Check your appcache for offline storage
 
-    a(href="http://github.com/fhemberger/manifest-validator")
-      img(style="position: absolute; top: 0; right: 0; border: 0;", src="/fork-me-on-github.png", width="149", height="149", alt="Fork me on GitHub")
+    a(href="http://github.com/fhemberger/manifest-validator", role="presentation", tabindex="-1")
+      img(style="position: absolute; top: 0; right: 0; border: 0;", src="/fork-me-on-github.png", width="149", height="149", alt="Fork me on GitHub", role="presentation", tabindex="-1")
 
     !{body}
 
-    #footer
+    #footer(role="contentinfo")
       :markdown
-        Cache Manifest Validator by [Frederic Hemberger](http://frederic-hemberger.de). Powered by [NodeJS](http://nodejs.org/), running on [Uberspace](http://uberspace.de/).  
+        Cache Manifest Validator by [Frederic Hemberger](http://frederic-hemberger.de). Powered by [NodeJS](http://nodejs.org/), running on [Uberspace](http://uberspace.de/).
         Licenced under the [MIT License](http://www.opensource.org/licenses/mit-license), source code available at [GitHub](https://github.com/fhemberger/manifest-validator/).
 
     include _analytics

@@ -4,7 +4,6 @@ abbr, cite, del, dfn, em, img, ins, q, strong, ul, li, pre, code {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	outline: 0;
 	font-weight: inherit;
 	font-style: inherit;
 	font-size: 100%;
@@ -48,7 +47,7 @@ h1 {
 		color: #fff;
 		border-bottom: 1px dotted #AAAA77;
 	}
-	
+
 	h1 span {
 		display: block;
 		font-size: 0.45em;
@@ -69,7 +68,7 @@ a.home {
 #description {
 	clear: both;
 	overflow: hidden;
-	
+
 	font-size: 0.9em;
 	line-height: 1.5em;
 	}
@@ -82,7 +81,7 @@ a.home {
 		padding-left: 3em;
 		list-style-type: lower-roman;
 	}
-	
+
 
 
 #footer {

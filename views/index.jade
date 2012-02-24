@@ -1,25 +1,25 @@
-ul#tab-header
-  li(class="active")
-    a(href="#validate-by-uri")
+ul#tab-header(role="tablist")
+  li(role="tab",class="active")
+    a(href="#validate-by-uri", accesskey="u")
       span Validate by
       |  URI
-  li
-    a(href="#validate-by-upload")
+  li(role="tab")
+    a(href="#validate-by-upload", accesskey="f")
       span Validate by
       |  File Upload
-  li
-    a(href="#validate-by-direct-input")
+  li(role="tab")
+    a(href="#validate-by-direct-input", , accesskey="d")
       span Validate by
       |  Direct Input
 
 
-#tab-content
+#tab-content(role="tabpanel")
   fieldset#validate-by-uri
     h2 Validate by URI
     p Validate a document online:
     form(action="/validate", method="post")
       label(title="Address of manifest to validate", for="uri") Address:
-        input(type="text", name="uri", id="uri", size="45")
+        input(type="text", name="uri", id="uri", size="45", placeholder="http://www.example.com/cache.manifest", required)
       input(type="submit", value="Check")
 
   fieldset#validate-by-upload
@@ -27,14 +27,14 @@ ul#tab-header
     p Upload a document for validation:
     form(action="/validate", enctype="multipart/form-data", method="post")
       label(title="Choose a local file to upload and validate", for="file") File:
-        input(type="file", id="upload", size="30", name="upload")
+        input(type="file", id="upload", size="30", name="upload", required)
       input(type="submit", value="Check")
 
   fieldset#validate-by-direct-input
     h2 Validate by Direct Input
     p(title="Paste a complete cache manifest here") Enter the manifest to validate:
     form(action="/validate", method="post")
-      textarea(id="text", name="directinput", rows="12", cols="70")
+      textarea(id="text", name="directinput", rows="12", cols="70", required)
       input(type="submit", value="Check")
 
 
@@ -64,32 +64,4 @@ ul#tab-header
 
 
 script(src="http://code.jquery.com/jquery.min.js")
-script
-  function showTab(tabId) {
-    var tabHeader  = document.getElementById('tab-header').getElementsByTagName('li');
-    var tabContent = document.getElementById('tab-content').getElementsByTagName('fieldset');
-
-    for (var i=0,len=tabContent.length; i<len; i++) {
-      if (tabContent[i].id == tabId) {
-        tabHeader[i].className      = 'active';
-        tabContent[i].style.display = 'block';
-      } else {
-        tabHeader[i].className      = '';
-        tabContent[i].style.display = 'none';
-      }
-    }
-  }
-
-  $(function(){
-    $('#tab-header').click(function(e) {
-      if (e.target.tagName === 'A') { showTab( e.target.hash.substr(1) ); }
-      if (e.target.tagName === 'SPAN') { showTab( e.target.parentNode.hash.substr(1) ); }
-      e.preventDefault();
-    });
-    $('form').submit(function(e) {
-      if ( $('input:first-child, textarea:first-child', this).val() === '' ) { e.preventDefault(); }
-    });
-    showTab('validate-by-uri');
-  });
-
-
+script(src="/tabs.js")
