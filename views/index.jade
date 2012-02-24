@@ -19,15 +19,15 @@ ul#tab-header(role="tablist")
     p Validate a document online:
     form(action="/validate", method="post")
       label(title="Address of manifest to validate", for="uri") Address:
-        input(type="text", name="uri", id="uri", size="45", placeholder="http://www.example.com/cache.manifest", required)
+      input(type="text", name="uri", id="uri", size="45", placeholder="http://www.example.com/cache.manifest", required)
       input(type="submit", value="Check")
 
   fieldset#validate-by-upload
     h2 Validate by File Upload
     p Upload a document for validation:
     form(action="/validate", enctype="multipart/form-data", method="post")
-      label(title="Choose a local file to upload and validate", for="file") File:
-        input(type="file", id="upload", size="30", name="upload", required)
+      label(title="Choose a local file to upload and validate", for="upload") File:
+      input(type="file", name="upload", id="upload", required)
       input(type="submit", value="Check")
 
   fieldset#validate-by-direct-input
