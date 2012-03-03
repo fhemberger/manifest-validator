@@ -13,23 +13,24 @@
   "homepage": "http://manifest-validator.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fhemberger/manifest-validator.git"
+    "url" : "https://github.com/fhemberger/manifest-validator.git"
   },
   "license": "MIT",
   "main": "app.js",
   "scripts": {
     "start": "NODE_ENV=production node app.js",
-    "test": "nodeunit ./test"
+    "test" : "nodeunit ./test"
   },
   "engines": {
     "node": ">= 0.4.9"
   },
   "dependencies": {
     "connect-form": ">= 0.2.1",
-    "express": ">= 2.4.3",
-    "jade": ">= 0.0.1",
-    "markdown-js": ">= 0.0.3",
-    "request": ">= 2.0.2"
+    "express"     : ">= 2.4.3",
+    "ga"          : "*",
+    "jade"        : "*",
+    "markdown-js" : "*",
+    "request"     : "*"
   },
   "devDependencies" : {
     "nodeunit": ">= 0.6.0"

@@ -6,7 +6,9 @@ var ASYNC_TIMEOUT = 1000;
 
 // -- Mockups -----------------------------------------------------------------
 var _req = {
-  params: []
+  params: [],
+  url: '',
+  header: function(param) { return ""; }
 };
 
 var _res = {
@@ -24,7 +26,20 @@ var _res = {
       if (matches[1]) { this.testResult = matches[1]; }
     }
   },
+  send: function(value) {
+    if (typeof value == 'number') {
+      this.testResult = value;
+      return;
+    }
+    this.end(value);
+  },
   header: function(a, b) {}
+};
+
+var logMethod = global.console.log;
+global.console.log = function(){
+  if (arguments[0] == 'API call:') { return; }
+  logMethod.apply(this, arguments);
 };
 
 
@@ -34,7 +49,7 @@ exports['Invalid call'] = {
     var req=_req, res=_res;
 
     manifestController.dispatch('api', req, res);
-    test.equal(res.testResult.errors, "ERR_INVALID_API_CALL");
+    test.equal(res.testResult, 400);
     test.done();
   },
 
@@ -43,7 +58,7 @@ exports['Invalid call'] = {
     req.body = { unknownparameter: true };
 
     manifestController.dispatch('api', req, res);
-    test.equal(res.testResult.errors, "ERR_INVALID_API_CALL");
+    test.equal(res.testResult, 400);
     test.done();
   }
 };
