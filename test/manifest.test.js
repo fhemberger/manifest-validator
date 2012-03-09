@@ -31,23 +31,6 @@ exports['Load from URI'] = {
 
 
 // ----------------------------------------------------------------------------
-exports['Check MIME type'] = {
-  'Invalid MIME type': function(test) {
-    var manifest = new Manifest();
-    test.equal(manifest.checkMimeType(), false);
-    test.done();
-  },
-
-  'Valid MIME type': function(test) {
-    var manifest = new Manifest();
-    manifest.mimeType = 'text/cache-manifest';
-    test.equal(manifest.checkMimeType(), true);
-    test.done();
-  }
-};
-
-
-// ----------------------------------------------------------------------------
 exports['Check Resources'] = {
   'Empty resources': function(test) {
     var manifest = new Manifest();
