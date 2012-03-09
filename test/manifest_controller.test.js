@@ -78,28 +78,7 @@ exports['URI'] =  {
     }, ASYNC_TIMEOUT);
   },
 
-  'Valid URI: Tested in validator.test.js': function(test) {
-    test.done();
-  }
-};
-
-
-// ----------------------------------------------------------------------------
-exports['Upload'] = {
-  'Invalid file': function(test) {
-    var req=_req, res=_res;
-    req.body = undefined;
-    req.form = {
-      complete: function(callback) {callback(true); }
-    };
-
-    manifestController.dispatch('api', req, res);
-    test.equal(res.testResult.isValid, false);
-    test.equal(res.testResult.errors, 'ERR_INVALID_FILE');
-    test.done();
-  },
-
-  'Valid file: Tested in validator.test.js': function(test) {
+  'Valid URI: Tested in manifest.test.js': function(test) {
     test.done();
   }
 };

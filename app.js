@@ -1,13 +1,10 @@
 /*jshint node:true, strict:false */
 
 var express            = require('express'),
-    form               = require('connect-form'),
     manifestController = require('./lib/manifest_controller.js');
 
 
-var app = module.exports = express.createServer(
-  form({ keepExtensions: true })
-);
+var app = module.exports = express.createServer();
 
 
 // Configuration
@@ -44,7 +41,7 @@ app.get('/api/validate', function(req, res) {
 
 // Don't call the result page directly
 app.get('/validate', function(req, res) {
-  redirect('/');
+  res.redirect('/');
 });
 
 app.get('/', function(req, res) {
