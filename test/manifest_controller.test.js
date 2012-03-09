@@ -1,7 +1,7 @@
 var nodeunit = require('nodeunit'),
     manifestController = require('../lib/manifest_controller.js');
 
-var ASYNC_TIMEOUT = 1000;
+var ASYNC_TIMEOUT = 2000;
 
 
 // -- Mockups -----------------------------------------------------------------
