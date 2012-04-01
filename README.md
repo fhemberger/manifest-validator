@@ -29,6 +29,11 @@ The validation service can also be used by external tools. Either provide an URI
 Read the [Cache Manifest Validator API documentation](https://github.com/fhemberger/manifest-validator/wiki/API-Documentation).
 
 
+## Chrome Extension
+
+The validator is now also available as an [extension for Google Chrome](https://chrome.google.com/webstore/detail/lomdbpjnhnphfhgmaeedafmnfeikkcfo), you can [grab the source code here](https://github.com/fhemberger/manifest-validator.chrome).
+
+
 ## Textmate Bundle
 
 I've also created a [TextMate bundle](https://github.com/fhemberger/CacheManifest.tmbundle/) with a default manifest template and a connection to the validation service.
@@ -38,7 +43,7 @@ I've also created a [TextMate bundle](https://github.com/fhemberger/CacheManifes
 
 (The MIT-License)
 
-Copyright (c) 2011 Frederic Hemberger
+Copyright (c) 2011-2012 Frederic Hemberger
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
