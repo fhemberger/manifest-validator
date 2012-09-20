@@ -1,6 +1,17 @@
 - if (isValid)
   h2(class="result valid") This document was successfully checked
-  a(href="/", class="home") Return to Homepage
+
+  - if (warnings.length)
+    h3 Warnings:
+    ul
+      - for (var e in warnings)
+        li Line #{parseInt(e,10)+1}:&nbsp;
+          strong #{lang[warnings[e].error]}
+          br
+          - if (warnings[e].content)
+            pre
+              code #{warnings[e].content}
+
 - else
   h2(class="result invalid") Error found while checking this document
 
@@ -28,5 +39,5 @@
           pre
             code #{resources[r]}
 
-  a(href="/", class="home") Return to Homepage
+a(href="/", class="home") Return to Homepage
 
