@@ -79,8 +79,8 @@ exports['Validate'] = {
   'FALLBACK: Same origin policy': function(test) {
     var manifest = new Manifest("CACHE MANIFEST\nFALLBACK:\n/ https://127.0.0.1/");
     manifest.validate();
-    test.equal(manifest.errors.length, 3);
-    test.equal(manifest.errors[2].error, 'ERR_FALLBACK_SAME_ORIGIN');
+    test.equal(manifest.warnings.length, 3);
+    test.equal(manifest.warnings[2].error, 'ERR_FALLBACK_SAME_ORIGIN');
     test.done();
   },
 
