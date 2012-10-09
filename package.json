@@ -29,9 +29,9 @@
     "ga"          : "*",
     "jade"        : "*",
     "markdown-js" : "*",
-    "request"     : "*"
+    "request"     : "< 2.10"
   },
   "devDependencies" : {
-    "nodeunit": ">= 0.6.0"
+    "nodeunit": "0.7.3"
   }
 }
