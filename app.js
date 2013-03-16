@@ -9,7 +9,7 @@ var app = module.exports = express.createServer();
 
 // Configuration
 app.configure(function() {
-  app.set('basepath', 'http://manifest-validator.com');
+  app.set('basepath', 'manifest-validator.com');
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.bodyParser());
@@ -49,7 +49,8 @@ app.get('/', function(req, res) {
 });
 
 app.get('*', function(req, res) {
-  res.redirect('/');
+  req.headers.host = app.get('host');
+  res.redirect('/', 404);
 });
 
 app.listen(8735);
