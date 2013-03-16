@@ -9,5 +9,5 @@ module.exports = {
 	ERR_MANIFEST_HEADER   : 'Cache manifest must start with CACHE MANIFEST in first line.',
 	ERR_MANIFEST_INVALID_RESOURCE : 'Invalid resource identifier.',
 	ERR_FALLBACK_SAME_ORIGIN : 'Fallback resources must be from the same origin (i.e. identical protocol, hostname and port) as manifest file.',
-	ERR_WHITELIST_SAME_SHEME : 'Whitelist resource must have the same URI sheme (i.e. protocol) as manifest file.'
+	ERR_WHITELIST_SAME_SCHEME     : 'Whitelist resource must have the same URI sheme (i.e. protocol) as manifest file.',
 };

@@ -40,7 +40,7 @@ exports['Check Resources'] = {
     });
   },
 
-  'Inalid resource': function(test) {
+  'Invalid resource': function(test) {
     var manifest = new Manifest();
     manifest.resources = ['http://manifest-validator.com/test/notfound'];
     manifest.checkResources(function() {
@@ -84,11 +84,11 @@ exports['Validate'] = {
     test.done();
   },
 
-  'NETWORK: Same URI sheme': function(test) {
+  'NETWORK: Same URI scheme': function(test) {
     var manifest = new Manifest("CACHE MANIFEST\nNETWORK:\nhttps://127.0.0.1/");
     manifest.validate();
     test.equal(manifest.errors.length, 3);
-    test.equal(manifest.errors[2].error, 'ERR_WHITELIST_SAME_SHEME');
+    test.equal(manifest.errors[2].error, 'ERR_WHITELIST_SAME_SCHEME');
     test.done();
   },
 
