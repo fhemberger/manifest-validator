@@ -13,11 +13,8 @@
   "homepage": "http://manifest-validator.com/",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=production node app.js",
-    "test" : "nodeunit ./test"
-  },
-  "engines": {
-    "node": ">= 0.4.9"
+    "start": "NODE_ENV=production PORT=8735 node app.js",
+    "test" : "mocha"
   },
   "dependencies": {
     "express"     : "~3.1",
@@ -26,7 +23,8 @@
     "markdown-js" : "*",
     "request"     : "*"
   },
-  "devDependencies" : {
-    "nodeunit": "0.7.3"
+  "devDependencies": {
+    "chai"        : "~1.5",
+    "mocha"       : "~1.9"
   }
 }
