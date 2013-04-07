@@ -12,5 +12,5 @@ exports.validate = function(req, res) {
 
 
 exports.error404 = function(req, res) {
-  res.status(404);
+  res.send(404, 'I’m sorry, Dave. I’m afraid I can’t do that.');
 };
