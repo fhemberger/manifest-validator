@@ -1,70 +1,73 @@
-ul#tab-header(role="tablist")
-  li(role="tab",class="active")
-    a(href="#validate-by-uri", accesskey="u")
-      span Validate by
-      |  URI
-  li(role="tab")
-    a(href="#validate-by-upload", accesskey="f")
-      span Validate by
-      |  File Upload
-  li(role="tab")
-    a(href="#validate-by-direct-input", , accesskey="d")
-      span Validate by
-      |  Direct Input
+extends layout
+
+block content
+  ul#tab-header(role="tablist")
+    li(role="tab",class="active")
+      a(href="#validate-by-uri", accesskey="u")
+        span Validate by
+        |  URI
+    li(role="tab")
+      a(href="#validate-by-upload", accesskey="f")
+        span Validate by
+        |  File Upload
+    li(role="tab")
+      a(href="#validate-by-direct-input", , accesskey="d")
+        span Validate by
+        |  Direct Input
 
 
-#tab-content(role="tabpanel")
-  fieldset#validate-by-uri
-    h2 Validate by URI
-    p Validate a document online:
-    form(action="/validate", method="post")
-      label(title="Address of manifest to validate", for="uri") Address:
-      input(type="text", name="uri", id="uri", size="45", placeholder="http://www.example.com/cache.manifest", required)
-      input(type="submit", value="Check")
+  #tab-content(role="tabpanel")
+    fieldset#validate-by-uri
+      h2 Validate by URI
+      p Validate a document online:
+      form(action="/validate", method="post")
+        label(title="Address of manifest to validate", for="uri") Address:
+        input(type="text", name="uri", id="uri", size="45", placeholder="http://www.example.com/cache.manifest", required)
+        input(type="submit", value="Check")
 
-  fieldset#validate-by-upload
-    h2 Validate by File Upload
-    p Upload a document for validation:
-    form(action="/validate", enctype="multipart/form-data", method="post")
-      label(title="Choose a local file to upload and validate", for="upload") File:
-      input(type="file", name="upload", id="upload", required)
-      input(type="submit", value="Check")
+    fieldset#validate-by-upload
+      h2 Validate by File Upload
+      p Upload a document for validation:
+      form(action="/validate", enctype="multipart/form-data", method="post")
+        label(title="Choose a local file to upload and validate", for="upload") File:
+        input(type="file", name="upload", id="upload", required)
+        input(type="submit", value="Check")
 
-  fieldset#validate-by-direct-input
-    h2 Validate by Direct Input
-    p(title="Paste a complete cache manifest here") Enter the manifest to validate:
-    form(action="/validate", method="post")
-      textarea(id="text", name="directinput", rows="12", cols="70", required)
-      input(type="submit", value="Check")
-
-
-#description
-  .left
-    :markdown
-      ### Check cache manifest files for web application offline storage
-      The most complete method is to upload the manifest file to your server and validate it by URI. This will also check the availability of all resources listed in your manifest – if even one of them fails to download properly, the entire process of caching your offline web application will fail.
-
-      To learn more about offline web applications and cache manifest files, check the following resources:
-
-      - [Let's Take This Offline](http://diveintohtml5.org/offline.html)
-      - [Appcache Facts](http://appcachefacts.info/)
-      - [MDN: Offline resources in Firefox](http://developer.mozilla.org/En/Offline_resources_in_Firefox#The_cache_manifest)
-      - [WHATWG Specification](http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html#offline)
-    include _twitter
-
-  .right
-    :markdown
-      ### API
-      This validation service can also be used by external tools. Either provide an URI to your manifest or the file's content as a string (GET and POST are supported for calling). The API either returns a JSON string or a JavaScript function for [JSONP](http://en.wikipedia.org/wiki/JSON#JSONP), when you provide the optional callback parameter.
-
-      Read the [Cache Manifest Validator API documentation](https://github.com/fhemberger/manifest-validator/wiki/API-Documentation) on GitHub.
-
-      ### Chrome Extension
-      The validator is now also available as an [extension for Google Chrome](https://chrome.google.com/webstore/detail/lomdbpjnhnphfhgmaeedafmnfeikkcfo), you can [grab the source code here](https://github.com/fhemberger/manifest-validator.chrome).
-
-      ### Textmate Bundle
-      I've also created a TextMate bundle with a default manifest template and a connection to this validation service. It is available at [GitHub](https://github.com/fhemberger/CacheManifest.tmbundle/) and can also be [downloaded directly](https://github.com/fhemberger/CacheManifest.tmbundle/zipball/master).
+    fieldset#validate-by-direct-input
+      h2 Validate by Direct Input
+      p(title="Paste a complete cache manifest here") Enter the manifest to validate:
+      form(action="/validate", method="post")
+        textarea(id="text", name="directinput", rows="12", cols="70", required)
+        input(type="submit", value="Check")
 
 
-script(src="http://code.jquery.com/jquery.min.js")
-script(src="/tabs.js")
+  #description
+    .left
+      :markdown
+        ### Check cache manifest files for web application offline storage
+        The most complete method is to upload the manifest file to your server and validate it by URI. This will also check the availability of all resources listed in your manifest – if even one of them fails to download properly, the entire process of caching your offline web application will fail.
+
+        To learn more about offline web applications and cache manifest files, check the following resources:
+
+        - [Let's Take This Offline](http://diveintohtml5.org/offline.html)
+        - [Appcache Facts](http://appcachefacts.info/)
+        - [MDN: Offline resources in Firefox](http://developer.mozilla.org/En/Offline_resources_in_Firefox#The_cache_manifest)
+        - [WHATWG Specification](http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html#offline)
+      include _twitter
+
+    .right
+      :markdown
+        ### API
+        This validation service can also be used by external tools. Either provide an URI to your manifest or the file's content as a string (GET and POST are supported for calling). The API either returns a JSON string or a JavaScript function for [JSONP](http://en.wikipedia.org/wiki/JSON#JSONP), when you provide the optional callback parameter.
+
+        Read the [Cache Manifest Validator API documentation](https://github.com/fhemberger/manifest-validator/wiki/API-Documentation) on GitHub.
+
+        ### Chrome Extension
+        The validator is now also available as an [extension for Google Chrome](https://chrome.google.com/webstore/detail/lomdbpjnhnphfhgmaeedafmnfeikkcfo), you can [grab the source code here](https://github.com/fhemberger/manifest-validator.chrome).
+
+        ### Textmate Bundle
+        I've also created a TextMate bundle with a default manifest template and a connection to this validation service. It is available at [GitHub](https://github.com/fhemberger/CacheManifest.tmbundle/) and can also be [downloaded directly](https://github.com/fhemberger/CacheManifest.tmbundle/zipball/master).
+
+
+  script(src="http://code.jquery.com/jquery.min.js")
+  script(src="/tabs.js")
