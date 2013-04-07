@@ -1,4 +1,4 @@
-# Cache Manifest Validator
+# Cache Manifest Validator [![Build Status](https://travis-ci.org/fhemberger/manifest-validator.png?branch=express)](https://travis-ci.org/fhemberger/manifest-validator)
 
 A Node.js based validator for cache manifest files: [manifest-validator.com](http://manifest-validator.com)
 
@@ -6,20 +6,9 @@ If you're looking for an easy way to create a manifest file for an existing proj
 [confess.js](https://github.com/jamesgpearce/confess), a PhantomJS based tool to enumerate a web app's resources.
 
 
-## Requirements
-
-- [node.js](http://nodejs.org/)
-- [npm (Node Package Manager)](http://npmjs.org/)
-
-
 ## Installation
 
-Having Node.js and npm installed, run these commands:
-
-	npm install .
-	node app.js
-
-For running the tests, you also need the `nodeunit` package.
+Using [Node.js](http://nodejs.org/), first get all required dependencies with `npm install`, then use `node app.js` to start the application. Unit tests can be executed with `npm test`.
 
 
 ## API
@@ -43,7 +32,7 @@ I've also created a [TextMate bundle](https://github.com/fhemberger/CacheManifes
 
 (The MIT-License)
 
-Copyright (c) 2011-2012 Frederic Hemberger
+Copyright (c) 2011-2013 Frederic Hemberger
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
