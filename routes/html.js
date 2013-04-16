@@ -1,3 +1,5 @@
+'use strict';
+
 var manifestController = require('../lib/manifest_controller.js');
 
 

@@ -1,5 +1,6 @@
-var manifestController = require('../lib/manifest_controller.js');
+'use strict';
 
+var manifestController = require('../lib/manifest_controller.js');
 
 exports.index = function(req, res) {
   res.send("respond with a resource");
