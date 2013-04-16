@@ -25,6 +25,7 @@ describe('Analytics', function() {
       };
       analytics.trackPage().should.equal('/api/validate');
       analytics.trackPage('mocha').should.equal('/api/validate?user-agent=mocha');
+      analytics.trackPage('User-Agent/1.0 (Mocha; Encoding Test)').should.equal('/api/validate?user-agent=User-Agent%2F1.0%20(Mocha%3B%20Encoding%20Test)');
     });
   });
 
