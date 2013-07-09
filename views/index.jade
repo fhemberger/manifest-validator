@@ -22,7 +22,7 @@ block content
       p Validate a document online:
       form(action="/validate", method="post")
         label(title="Address of manifest to validate", for="uri") Address:
-        input(type="text", name="uri", id="uri", size="45", placeholder="http://www.example.com/cache.manifest", required)
+        input(type="url", name="uri", id="uri", size="45", placeholder="http://www.example.com/cache.manifest", required)
         input(type="submit", value="Check")
 
     fieldset#validate-by-upload
