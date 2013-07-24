@@ -17,14 +17,14 @@
     "test" : "mocha"
   },
   "dependencies": {
-    "express"     : "~3.1",
+    "express"     : "~3.x",
     "ga"          : "*",
     "jade"        : "*",
     "markdown-js" : "*",
     "request"     : "*"
   },
   "devDependencies": {
-    "chai"        : "~1.5",
-    "mocha"       : "~1.9"
+    "chai"        : "~1.x",
+    "mocha"       : "~1.x"
   }
 }
