@@ -38,9 +38,8 @@ h1 {
 	color: #fff;
 	background-color: #365D95;
 
-	border-radius: 0.5em;
-	-moz-border-radius: 0.5em;
 	-webkit-border-radius: 0.5em;
+	        border-radius: 0.5em;
 	}
 
 	h1 a:link, h1 a:visited, h1 a:hover, h1 a:active {
@@ -105,10 +104,9 @@ a.home {
 	font-weight: bold;
 
 	background-color: #DADDE3;
-	border-radius: 0.5em 0.5em 0em 0em;
-	-moz-border-radius: 0.5em 0.5em 0em 0em;
-	-webkit-border-radius: 0.5em 0.5em 0em 0em;
 	border-bottom: 1px solid #CBD0DB;
+	-webkit-border-radius: 0.5em 0.5em 0em 0em;
+	        border-radius: 0.5em 0.5em 0em 0em;
 	}
 
 	#tab-header li.active {
@@ -125,9 +123,8 @@ a.home {
 	margin-bottom: 1em;
 	padding: 1em 1.3em 0.5em;
 
-	border-radius: 0em 0.5em 0.5em 0.5em;
-	-moz-border-radius: 0em 0.5em 0.5em 0.5em;
 	-webkit-border-radius: 0em 0.5em 0.5em 0.5em;
+	        border-radius: 0em 0.5em 0.5em 0.5em;
 	}
 
 	#tab-content h2 {
@@ -136,7 +133,6 @@ a.home {
 		font-size: 1.1em;
 		letter-spacing: 0.05em;
 		border-bottom: 1px solid #CBCDD5;
-	     -moz-box-shadow: 0px 1px 0px #ffffff; /* FF3.5+ */
 	  -webkit-box-shadow: 0px 1px 0px #ffffff; /* Saf3.0+, Chrome */
 	          box-shadow: 0px 1px 0px #ffffff; /* Opera 10.5, IE9 */
 	}
@@ -177,10 +173,9 @@ input[type="submit"] {
 	background-image: linear-gradient(top, #FDFDFD, #DADADC);
 	          filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#FDFDFD', EndColorStr='#DADADC'); /* IE6–IE9 */
 
-	border-radius: 2em;
-	-moz-border-radius: 2em;
-	-webkit-border-radius: 2em;
 	border: 1px solid #999;
+	-webkit-border-radius: 2em;
+	        border-radius: 2em;
 }
 
 
@@ -226,4 +221,39 @@ pre code {
 	margin: 0.5em 0;
 	background-color: #EAEBEE;
 	border-bottom: 0 none;
+}
+
+/* -- Media Queries -------------------------------------------------------- */
+@media screen and (max-width: 40em) {
+	body {
+		padding: 0.5em 1em 0em;
+	}
+
+	#github { display: none; }
+
+	#description div {
+		width: 100%;
+		float: none;
+	}
+
+	#tab-header {
+		margin-bottom: 0;
+		}
+		#tab-header li {
+			float: none;
+			display: block;
+			margin-right: 0;
+			padding: 1em 1.5em 0.5em;
+			-webkit-border-radius: 0;
+			        border-radius: 0;
+		}
+		#tab-header li:first-child {
+			-webkit-border-radius: 0.5em 0.5em 0em 0em;
+			        border-radius: 0.5em 0.5em 0em 0em;
+		}
+
+	#tab-content {
+		-webkit-border-top-right-radius: 0;
+		        border-top-right-radius: 0;
+	}
 }

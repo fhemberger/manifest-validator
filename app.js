@@ -1,10 +1,12 @@
 var express = require('express'),
-    http   = require('http');
+    http    = require('http');
 
 var routes = {
     html: require('./routes/html.js'),
     api : require('./routes/api.js')
 };
+
+var oneDayInMilliseconds = 86400000;
 
 var app = express();
 
@@ -13,11 +15,12 @@ app.set('port', process.env.PORT || 3000);
 app.set('env', process.env.NODE_ENV || 'development');
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.use(express.favicon(__dirname + '/public/favicon.ico', { maxAge: 2592000000 }));
+app.use(express.compress());
+app.use(express.favicon(__dirname + '/public/favicon.ico', { maxAge: oneDayInMilliseconds * 30 }));
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public', { maxAge: oneDayInMilliseconds }));
 app.use(app.router);
 
 
