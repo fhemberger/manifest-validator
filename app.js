@@ -31,6 +31,7 @@ app.configure('development', function() {
 
 app.configure('production', function() {
   app.set('baseurl', 'http://manifest-validator.com');
+  app.set('view cache');
 });
 
 
