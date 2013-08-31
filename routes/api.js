@@ -71,7 +71,16 @@ function dispatchAPI(req, res, param) {
 
 
 exports.index = function(req, res) {
-  res.send("respond with a resource");
+  var body = JSON.stringify({
+    api: {
+      version       : '1.0',
+      endpoint      : 'http://manifest-validator.com/api/validate',
+      documentation : 'https://github.com/fhemberger/manifest-validator/wiki/API-Documentation'
+    }
+  }, null, '  ');
+  res.header('Content-Type', 'application/json; charset=utf-8');
+  res.header('Content-Length', Buffer.byteLength(body, 'utf-8'));
+  res.end(body);
 };
 
 
