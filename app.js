@@ -17,7 +17,6 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.compress());
 app.use(express.favicon(__dirname + '/public/favicon.ico', { maxAge: oneDayInMilliseconds * 30 }));
-app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.static(__dirname + '/public', { maxAge: oneDayInMilliseconds }));
 app.use(app.router);
@@ -25,12 +24,14 @@ app.use(app.router);
 
 app.configure('development', function() {
   app.set('baseurl', 'http://localhost:' + app.get('port'));
+  app.use(express.logger('dev'));
   app.use(express.errorHandler());
 });
 
 
 app.configure('production', function() {
   app.set('baseurl', 'http://manifest-validator.com');
+  app.use(express.logger());
   app.set('view cache');
 });
 
