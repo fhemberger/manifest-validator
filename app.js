@@ -17,7 +17,6 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.compress());
 app.use(express.favicon(__dirname + '/public/favicon.ico', { maxAge: oneDayInMilliseconds * 30 }));
-app.use(express.bodyParser());
 app.use(express.static(__dirname + '/public', { maxAge: oneDayInMilliseconds }));
 app.use(app.router);
 
@@ -37,12 +36,12 @@ app.configure('production', function() {
 
 
 app.get( '/api',          routes.api.index);
-app.get( '/api/validate', routes.api.validate);
-app.post('/api/validate', routes.api.validate);
+app.get( '/api/validate', express.multipart(), routes.api.validate);
+app.post('/api/validate', express.multipart(), routes.api.validate);
 
 // Don't call the result page directly
 app.get( '/validate',     function(req, res) { res.redirect('/'); });
-app.post('/validate',     routes.html.validate);
+app.post('/validate',     express.multipart(), routes.html.validate);
 app.get( '/',             routes.html.index);
 app.get( '*',             routes.html.error404);
 
