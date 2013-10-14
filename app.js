@@ -36,12 +36,12 @@ app.configure('production', function() {
 
 
 app.get( '/api',          routes.api.index);
-app.get( '/api/validate', express.multipart(), routes.api.validate);
-app.post('/api/validate', express.multipart(), routes.api.validate);
+app.get( '/api/validate', express.multipart(), express.urlencoded(), routes.api.validate);
+app.post('/api/validate', express.multipart(), express.urlencoded(), routes.api.validate);
 
 // Don't call the result page directly
 app.get( '/validate',     function(req, res) { res.redirect('/'); });
-app.post('/validate',     express.multipart(), routes.html.validate);
+app.post('/validate',     express.multipart(), express.urlencoded(), routes.html.validate);
 app.get( '/',             routes.html.index);
 app.get( '*',             routes.html.error404);
 
