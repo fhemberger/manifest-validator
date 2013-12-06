@@ -106,8 +106,22 @@ describe('Manifest', function() {
       manifest.errors[0].error.should.equal('ERR_EMPTY_FILE');
     });
 
+    it('should pass on valid manifest header', function() {
+      var manifest = new Manifest('CACHE MANIFEST');
+      var isValid  = manifest.validate();
+
+      isValid.should.be.true;
+    });
+
+    it('should work with preceeding byte order mark (BOM)', function() {
+      var manifest = new Manifest('\uFEFFCACHE MANIFEST');
+      var isValid  = manifest.validate();
+
+      isValid.should.be.true;
+    });
+
     it('should fail on invalid manifest header', function() {
-      var manifest = new Manifest('MANIFEST HEADER');
+      var manifest = new Manifest('INVALID MANIFEST HEADER');
       var isValid  = manifest.validate();
 
       isValid.should.be.false;

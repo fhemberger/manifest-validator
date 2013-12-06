@@ -13,8 +13,9 @@
   "homepage": "http://manifest-validator.com/",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=production PORT=8735 node app.js",
-    "test" : "node_modules/.bin/mocha"
+    "start"    : "NODE_ENV=production PORT=8735 node app.js",
+    "test"     : "node_modules/.bin/mocha",
+    "coverage" : "istanbul cover node_modules/.bin/_mocha -- -R spec"
   },
   "dependencies": {
     "express"     : "~3.4",

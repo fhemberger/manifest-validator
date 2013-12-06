@@ -1,4 +1,4 @@
-# Cache Manifest Validator [![Build Status](https://travis-ci.org/fhemberger/manifest-validator.png?branch=express)](https://travis-ci.org/fhemberger/manifest-validator)
+# Cache Manifest Validator [![Build Status](https://travis-ci.org/fhemberger/manifest-validator.png?branch=express)](https://travis-ci.org/fhemberger/manifest-validator) [![Dependency Status](https://david-dm.org/fhemberger/manifest-validator.png)](https://david-dm.org/fhemberger/manifest-validator) [![devDependency Status](https://david-dm.org/fhemberger/manifest-validator/dev-status.png)](https://david-dm.org/fhemberger/manifest-validator#info=devDependencies)
 
 A Node.js based validator for cache manifest files: [manifest-validator.com](http://manifest-validator.com)
 
