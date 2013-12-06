@@ -1,18 +1,9 @@
 'use strict';
 
-var manifestController = require('../lib/manifest_controller.js'),
-    ga                 = require('../lib/analytics');
+var manifestController  = require('../lib/manifest_controller'),
+    isValidFunctionName = require('../lib/validate-function-name'),
+    ga                  = require('../lib/analytics');
 
-
-// Based on this discussion at Stack Overflow:
-// http://stackoverflow.com/questions/2008279/validate-a-javascript-function-name/9392578#9392578
-function isValidFunctionName(name) {
-  if (!name) { return false; }
-
-  // Although some unicode chars are valid for function names, let's be conservative in this case
-  var validName = /^(?!(?:do|if|in|for|let|new|try|var|case|else|enum|eval|false|null|this|true|void|with|break|catch|class|const|super|throw|while|yield|delete|export|import|public|return|static|switch|typeof|default|extends|finally|package|private|continue|debugger|function|arguments|interface|protected|implements|instanceof)$)[$A-Za-z_][0-9A-Za-z_]*$/;
-  return validName.test(name);
-}
 
 
 function cleanupLogUrl(param) {

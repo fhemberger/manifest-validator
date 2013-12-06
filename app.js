@@ -19,6 +19,7 @@ app.use(express.compress());
 app.use(express.favicon(__dirname + '/public/favicon.ico', { maxAge: oneDayInMilliseconds * 30 }));
 app.use(express.static(__dirname + '/public', { maxAge: oneDayInMilliseconds }));
 app.use(app.router);
+app.disable('x-powered-by');
 
 
 app.configure('development', function() {
