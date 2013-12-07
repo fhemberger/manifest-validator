@@ -43,21 +43,37 @@ block content
 
   #description
     .left
-      :markdown
-        ### Check cache manifest files for web application offline storage
-        The most complete method is to upload the manifest file to your server and validate it by URI. This will also check the availability of all resources listed in your manifest – if even one of them fails to download properly, the entire process of caching your offline web application will fail.
+      h3 Check cache manifest files for web application offline storage
+      
+      p
+        | The most complete method is to upload the manifest file to your server and validate it by
+        | URI. This will also check the availability of all resources listed in your manifest – if
+        | even one of them fails to download properly, the entire process of caching your offline
+        | web application will fail.
 
-        To learn more about offline web applications and cache manifest files, check the following resources:
+      p
+        | To learn more about offline web applications and cache manifest files, check the following resources:
 
-        - [Let's Take This Offline](http://diveintohtml5.org/offline.html)
-        - [Appcache Facts](http://appcachefacts.info/)
-        - [MDN: Offline resources in Firefox](http://developer.mozilla.org/En/Offline_resources_in_Firefox#The_cache_manifest)
-        - [WHATWG Specification](http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html#offline)
+      ul
+        li
+          a(href="http://diveintohtml5.org/offline.html") Let's Take This Offline
+        li
+          a(href="http://appcachefacts.info/") Appcache Facts
+        li
+          a(href="http://developer.mozilla.org/En/Offline_resources_in_Firefox#The_cache_manifest") MDN: Offline resources in Firefox
+        li
+          a(href="http://www.whatwg.org/specs/web-apps/current-work/multipage/offline.html#offline") WHATWG Specification
+        li
+          a(href="http://alistapart.com/article/application-cache-is-a-douchebag") A List Apart: Application Cache is a Douchebag
 
     .right
-      :markdown
-        ### API
-        This validation service can also be used by external tools. Either provide an URI to your manifest or the file's content as a string (GET and POST are supported for calling). The API either returns a JSON string or a JavaScript function for [JSONP](http://en.wikipedia.org/wiki/JSON#JSONP), when you provide the optional callback parameter.
+      h3 API
+      p
+        | This validation service can also be used by external tools. Either provide an URI to your
+        | manifest or the file's content as a string (GET and POST are supported for calling).
+        | The API either returns a JSON string or a JavaScript function for
+        | <a href="http://en.wikipedia.org/wiki/JSON#JSONP">JSONP</a>,
+        | when you provide the optional callback parameter.
 
-        Read the [Cache Manifest Validator API documentation](https://github.com/fhemberger/manifest-validator/wiki/API-Documentation) on GitHub.
-        
+      p
+        | Read the <a href="https://github.com/fhemberger/manifest-validator/wiki/API-Documentation">Cache Manifest Validator API documentation</a> on GitHub.

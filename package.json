@@ -21,7 +21,6 @@
     "express"     : "~3.4",
     "ga"          : "*",
     "jade"        : "*",
-    "markdown-js" : "*",
     "request"     : "*"
   },
   "devDependencies": {
