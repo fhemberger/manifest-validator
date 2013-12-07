@@ -47,6 +47,11 @@ function dispatchAPI(req, res, param) {
     var body = JSON.stringify(result);
 
     if (param && param.callback) {
+
+      if (req.method !== 'GET') {
+        return res.status('405').send({ errors: 'JSONP accepts only GET requests'});
+      }
+
       var jsonpCallbackName = (isValidFunctionName(param.callback) ? param.callback : 'callback');
       mimeType = 'text/javascript';
       body = jsonpCallbackName + '(' + body + ')';
