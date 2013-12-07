@@ -36,10 +36,19 @@ app.configure('production', function() {
 });
 
 
-app.get( '/api',          routes.api.index);
-app.get( '/api/validate', express.multipart(), express.urlencoded(), routes.api.validate);
-app.post('/api/validate', express.multipart(), express.urlencoded(), routes.api.validate);
+// API
+var apiMiddleware = [
+  express.multipart(),
+  express.urlencoded(),
+  routes.api.validate
+];
 
+app.get( '/api',          routes.api.index);
+app.get( '/api/validate', apiMiddleware);
+app.post('/api/validate', apiMiddleware);
+
+
+// HTML
 // Don't call the result page directly
 app.get( '/validate',     function(req, res) { res.redirect('/'); });
 app.post('/validate',     express.multipart(), express.urlencoded(), routes.html.validate);
