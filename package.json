@@ -18,6 +18,7 @@
     "coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -R spec"
   },
   "dependencies": {
+    "busboy" : "*",
     "express": "~3.4",
     "piwik-tracker": "*",
     "jade": "*",

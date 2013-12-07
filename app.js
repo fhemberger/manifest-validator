@@ -51,7 +51,7 @@ app.post('/api/validate', apiMiddleware);
 // HTML
 // Don't call the result page directly
 app.get( '/validate',     function(req, res) { res.redirect('/'); });
-app.post('/validate',     express.multipart(), express.urlencoded(), routes.html.validate);
+app.post('/validate',     /*express.multipart(), express.urlencoded(), */routes.html.validate);
 app.get( '/',             routes.html.index);
 app.get( '*',             routes.html.error404);
 
