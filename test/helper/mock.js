@@ -1,6 +1,7 @@
 'use strict';
 
 exports.req = {
+  method : 'GET',
   params : [],
   url    : '',
   header : function() { return ''; }
