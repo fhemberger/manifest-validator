@@ -37,46 +37,39 @@ function logAPICall(req, param) {
 function dispatchAPI(req, res, param) {
   return function(result, status) {
 
-    if (status) {
-      return res.status(status).send(result);
-    }
-
     logAPICall(req, param);
 
-    var mimeType = 'application/json';
-    var body = JSON.stringify(result);
+    if (status) { return res.send(status, result); }
 
-    if (param && param.callback) {
-
-      if (req.method !== 'GET') {
-        return res.status('405').send({ errors: 'JSONP accepts only GET requests'});
-      }
-
-      var jsonpCallbackName = (isValidFunctionName(param.callback) ? param.callback : 'callback');
-      mimeType = 'text/javascript';
-      body = jsonpCallbackName + '(' + body + ')';
+    // Defalut response is JSON if 'callback' is not specified
+    if (param && !param.callback) {
+      return res.json(result);
     }
 
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'X-Requested-With');
-    res.header('Content-Type', mimeType + '; charset=utf-8');
-    res.header('Content-Length', Buffer.byteLength(body, 'utf-8'));
-    res.end(body);
+    // Otherwise send JSONP
+    // JSONP accepts only GET requests by spec
+    if (req.method !== 'GET') {
+      return res.send('405');
+    }
+
+    // Only allow valid callback names
+    param.callback = isValidFunctionName(param.callback)
+      ? param.callback
+      : 'callback';
+
+    res.jsonp(result);
   };
 }
 
 
 exports.index = function(req, res) {
-  var body = JSON.stringify({
+  res.json({
     api: {
       version       : '1.0',
       endpoint      : 'http://manifest-validator.com/api/validate',
       documentation : 'https://github.com/fhemberger/manifest-validator/wiki/API-Documentation'
     }
-  }, null, '  ');
-  res.header('Content-Type', 'application/json; charset=utf-8');
-  res.header('Content-Length', Buffer.byteLength(body, 'utf-8'));
-  res.end(body);
+  });
 };
 
 
@@ -88,7 +81,6 @@ exports.validate = function(req, res) {
 // Expose private functions in testing environment
 if (process.env.NODE_ENV === 'test') {
   module.exports = {
-    isValidFunctionName : isValidFunctionName,
     cleanupLogUrl       : cleanupLogUrl,
     logAPICall          : logAPICall,
     dispatchAPI         : dispatchAPI

@@ -21,34 +21,6 @@ global.console.log = function(){
 // -- Tests -------------------------------------------------------------------
 describe('API route specific functions', function() {
 
-  describe('#isValidFunctionName()', function() {
-    it('should return true if function only consists of alphanumeric characters or $/_', function() {
-      apiRoute.isValidFunctionName('UPPERCASE').should.be.true;
-      apiRoute.isValidFunctionName('lowercase').should.be.true;
-      apiRoute.isValidFunctionName('$foo').should.be.true;
-      apiRoute.isValidFunctionName('_privateFunction').should.be.true;
-      apiRoute.isValidFunctionName('callback1').should.be.true;
-    });
-
-
-    it('should return false if function name contains other characters', function() {
-      apiRoute.isValidFunctionName().should.be.false;
-      apiRoute.isValidFunctionName(null).should.be.false;
-      apiRoute.isValidFunctionName({}).should.be.false;
-      apiRoute.isValidFunctionName('').should.be.false;
-      apiRoute.isValidFunctionName('1').should.be.false;
-      apiRoute.isValidFunctionName('☺').should.be.false;
-    });
-
-
-    it('should return false if function name is a reserved word', function() {
-      apiRoute.isValidFunctionName(this).should.be.false;
-      apiRoute.isValidFunctionName('this').should.be.false;
-      apiRoute.isValidFunctionName('function').should.be.false;
-    });
-  });
-
-
   describe('#cleanupLogUrl()', function() {
     it('should work without parameters', function() {
       apiRoute.cleanupLogUrl().should.equal('/api/validate?');

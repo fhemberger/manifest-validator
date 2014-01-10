@@ -11,5 +11,6 @@
   "devel"     : true,
   "strict"    : true,
   "unused"    : true,
-  "undef"     : true
+  "undef"     : true,
+  "laxbreak"  : true
 }
