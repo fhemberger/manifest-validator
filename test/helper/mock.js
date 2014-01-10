@@ -37,7 +37,21 @@ exports.res = {
   },
   local  : function() {},
   render : function(template, value) { this.end(value); },
-  send   : function(value) { this.end(value); },
+  send   : function(status, value) {
+    if (typeof status !== 'number') {
+      this.end(status);
+    } else {
+      this.status(status).end(value);
+    }
+  },
+  json   : function(response) {
+    this.HTTPHeader['Content-Type'] = 'application/json; charset=utf-8';
+    this.end(response);
+  },
+  jsonp  : function(response) {
+    this.HTTPHeader['Content-Type'] = 'text/javascript; charset=utf-8';
+    this.end(response);
+  },
   status : function(value) {
     this.HTTPStatusCode = Number(value) || undefined;
     return this;

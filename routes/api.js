@@ -35,11 +35,17 @@ function logAPICall(req, param) {
 
 
 function dispatchAPI(req, res, param) {
+  param = param || {};
+
   return function(result, status) {
 
     logAPICall(req, param);
 
     if (status) { return res.send(status, result); }
+
+    // Add CORS header
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With');
 
     // Defalut response is JSON if 'callback' is not specified
     if (param && !param.callback) {
@@ -57,6 +63,7 @@ function dispatchAPI(req, res, param) {
       ? param.callback
       : 'callback';
 
+    if (process.env.NODE_ENV === 'test') { req.param = param; }
     res.jsonp(result);
   };
 }

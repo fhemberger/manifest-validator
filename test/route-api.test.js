@@ -48,24 +48,32 @@ describe('API route specific functions', function() {
 
 
   describe('#dispatchAPI()', function() {
-    it('should exit with the HTTP status code given', function() {
-      var dispatchFunction = apiRoute.dispatchAPI(mock.req, mock.res),
-          result           = dispatchFunction({'foo' : 'bar'}, 100);
+    var dispatchFunction, result;
 
-      dispatchFunction.should.be.a('function');
-      mock.res.HTTPStatusCode.should.equal(100);
-      mock.res.testResult.should.include.keys('foo');
-      mock.res.testResult.foo.should.equal('bar');
-
+    afterEach(function() {
       dispatchFunction = result = undefined;
     });
 
 
-    it('should return a JSON response by default', function() {
-      var dispatchFunction = apiRoute.dispatchAPI(mock.req, mock.res),
-          result           = dispatchFunction({'foo' : 'bar'});
-
+    it('should return a function', function() {
+      dispatchFunction = apiRoute.dispatchAPI(mock.req, mock.res);
       dispatchFunction.should.be.a('function');
+    });
+
+
+    it('should exit with the HTTP status code given', function() {
+      dispatchFunction = apiRoute.dispatchAPI(mock.req, mock.res),
+      result           = dispatchFunction({'foo' : 'bar'}, 100);
+
+      mock.res.HTTPStatusCode.should.equal(100);
+      mock.res.testResult.should.include.keys('foo');
+      mock.res.testResult.foo.should.equal('bar');
+    });
+
+
+    it('should return a JSON response by default', function() {
+      dispatchFunction = apiRoute.dispatchAPI(mock.req, mock.res),
+      result           = dispatchFunction({'foo' : 'bar'});
 
       mock.res.HTTPHeader.should.include.keys('Access-Control-Allow-Origin');
       mock.res.HTTPHeader['Access-Control-Allow-Origin'].should.equal('*');
@@ -78,34 +86,25 @@ describe('API route specific functions', function() {
 
       mock.res.testResult.should.include.keys('foo');
       mock.res.testResult.foo.should.equal('bar');
-
-      dispatchFunction = result = undefined;
     });
 
 
     it('should return a JSONP response if a callback parameter is set', function() {
-      var dispatchFunction = apiRoute.dispatchAPI(mock.req, mock.res, {'callback' : 'myFunction'}),
-          result           = dispatchFunction({'foo' : 'bar'});
-
-      dispatchFunction.should.be.a('function');
+      dispatchFunction = apiRoute.dispatchAPI(mock.req, mock.res, {'callback' : 'myFunction'}),
+      result           = dispatchFunction({'foo' : 'bar'});
 
       mock.res.HTTPHeader.should.include.keys('Content-Type');
       mock.res.HTTPHeader['Content-Type'].should.equal('text/javascript; charset=utf-8');
 
-      mock.res.callbackName.should.equal('myFunction');
-
-      dispatchFunction = result = undefined;
+      mock.req.param.callback.should.equal('myFunction');
     });
 
 
     it('should return a JSONP response with the default callback name if an invalid callback function name is set', function() {
-      var dispatchFunction = apiRoute.dispatchAPI(mock.req, mock.res, {'callback' : '☺'}),
-          result           = dispatchFunction({'foo' : 'bar'});
+      dispatchFunction = apiRoute.dispatchAPI(mock.req, mock.res, {'callback' : '☺'}),
+      result           = dispatchFunction({'foo' : 'bar'});
 
-      dispatchFunction.should.be.a('function');
-      mock.res.callbackName.should.equal('callback');
-
-      dispatchFunction = result = undefined;
+      mock.req.param.callback.should.equal('callback');
     });
   });
 
