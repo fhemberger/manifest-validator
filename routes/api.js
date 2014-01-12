@@ -2,7 +2,7 @@
 
 var manifestController  = require('../lib/manifest_controller'),
     isValidFunctionName = require('../lib/validate-function-name'),
-    ga                  = require('../lib/analytics');
+    analytics           = require('../lib/analytics');
 
 
 
@@ -30,7 +30,8 @@ function logAPICall(req, param) {
   );
 
   // Just log the User Agent in Google Analytics
-  ga.trackPage(userAgent);
+  analytics.trackGA(userAgent);
+  analytics.trackPiwik(req);
 }
 
 
@@ -39,9 +40,10 @@ function dispatchAPI(req, res, param) {
 
   return function(result, status) {
 
-    logAPICall(req, param);
-
+    // If a staus is explicitly set, it's an invalid API call
     if (status) { return res.send(status, result); }
+
+    logAPICall(req, param);
 
     // Add CORS header
     res.header('Access-Control-Allow-Origin', '*');
