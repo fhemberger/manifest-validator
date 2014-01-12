@@ -2,11 +2,7 @@
 
 require('chai').should();
 var mock     = require('./helper/mock'),
-    apiRoute;
-
-// Expose private functions in testing environment
-process.env.NODE_ENV = 'test';
-apiRoute             = require('../routes/api.js');
+    apiRoute = require('../routes/api.js');
 
 
 // Suppress API debug output

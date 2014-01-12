@@ -14,8 +14,8 @@
   "private": true,
   "scripts": {
     "start": "NODE_ENV=production PORT=8735 node app.js",
-    "test": "node_modules/.bin/mocha",
-    "coverage": "istanbul cover node_modules/.bin/_mocha -- -R spec"
+    "test": "NODE_ENV=test node_modules/.bin/mocha",
+    "coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -R spec"
   },
   "dependencies": {
     "express": "~3.4",

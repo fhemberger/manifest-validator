@@ -90,8 +90,10 @@ exports.validate = function(req, res) {
 // Expose private functions in testing environment
 if (process.env.NODE_ENV === 'test') {
   module.exports = {
-    cleanupLogUrl       : cleanupLogUrl,
-    logAPICall          : logAPICall,
-    dispatchAPI         : dispatchAPI
+    cleanupLogUrl : cleanupLogUrl,
+    logAPICall    : logAPICall,
+    dispatchAPI   : dispatchAPI,
+    index         : exports.index,
+    validate      : exports.validate
   };
 }
