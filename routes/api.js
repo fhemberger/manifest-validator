@@ -31,7 +31,7 @@ function logAPICall(req, param) {
 
   // Just log the User Agent in Google Analytics
   analytics.trackGA(userAgent);
-  analytics.trackPiwik(req);
+  analytics.trackPiwik(req, param);
 }
 
 
