@@ -1,8 +1,7 @@
 'use strict';
 
-/*jshint expr:true, es5:true*/
-var should   = require('chai').should(),
-    isValidFunctionName = require('../lib/validate-function-name');
+require('chai').should();
+var isValidFunctionName = require('../lib/validate-function-name');
 
 
 // -- Tests -------------------------------------------------------------------

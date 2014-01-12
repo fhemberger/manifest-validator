@@ -1,10 +1,9 @@
 'use strict';
 
-var should    = require('chai').should(),
-    analytics = require('../lib/analytics.js');
+require('chai').should();
+var analytics = require('../lib/analytics.js');
 
 
-/*jshint expr:true, es5:true*/
 describe('Analytics', function() {
 
   it('should be instanced properly', function() {

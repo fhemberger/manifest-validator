@@ -4,7 +4,6 @@ var should   = require('chai').should(),
     Manifest = require('../lib/manifest.js');
 
 
-/*jshint expr:true, es5:true*/
 describe('Manifest', function() {
   var manifest;
 

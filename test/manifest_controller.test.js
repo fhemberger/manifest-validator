@@ -5,7 +5,6 @@ var should             = require('chai').should(),
     manifestController = require('../lib/manifest_controller.js');
 
 
-/*jshint expr:true, es5:true*/
 var ASYNC_TIMEOUT = 2000;
 
 

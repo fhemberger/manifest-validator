@@ -62,6 +62,7 @@ var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server in \x1B[1m\x1B[31m' + app.get('env') + '\x1B[39m, listening on port \x1B[1m\x1B[31m' + app.get('port') + '\x1B[39m');
 });
 
+
 process.on('SIGTERM', function() {
   console.log('Received kill signal (SIGTERM), shutting down gracefully.');
   server.close(function() {
@@ -74,3 +75,8 @@ process.on('SIGTERM', function() {
     process.exit(1);
   }, 30000);
 });
+
+
+// Expose application instance for testing
+module.exports = app;
+

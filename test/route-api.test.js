@@ -1,8 +1,7 @@
 'use strict';
 
-/*jshint expr:true, es5:true*/
-var should   = require('chai').should(),
-    mock     = require('./helper/mock'),
+require('chai').should();
+var mock     = require('./helper/mock'),
     apiRoute;
 
 // Expose private functions in testing environment
