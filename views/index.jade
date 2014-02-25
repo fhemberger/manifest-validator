@@ -22,7 +22,7 @@ block content
       p Validate a document online:
       form(action="/validate", method="post")
         label(title="Address of manifest to validate", for="uri") Address:
-        input(type="url", name="uri", id="uri", size="45", placeholder="http://www.example.com/cache.manifest", required)
+        input(type="url", name="uri", id="uri", size="45", placeholder="http://www.example.com/manifest.appcache", required)
         input(type="submit", value="Check")
 
     fieldset#validate-by-upload
@@ -44,7 +44,7 @@ block content
   #description
     .left
       h3 Check cache manifest files for web application offline storage
-      
+
       p
         | The most complete method is to upload the manifest file to your server and validate it by
         | URI. This will also check the availability of all resources listed in your manifest – if
