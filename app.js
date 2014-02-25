@@ -1,7 +1,7 @@
 'use strict';
 
 var express = require('express'),
-    http    = require('http');
+    app = express();
 
 var routes = {
     html: require('./routes/html.js'),
@@ -9,8 +9,6 @@ var routes = {
 };
 
 var oneDayInMilliseconds = 86400000;
-
-var app = express();
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -58,20 +56,24 @@ app.get( '/',             routes.html.index);
 app.get( '*',             routes.html.error404);
 
 
-var server = http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server in \x1B[1m\x1B[31m' + app.get('env') + '\x1B[39m, listening on port \x1B[1m\x1B[31m' + app.get('port') + '\x1B[39m');
+var highlight = function(string) {
+  return '\x1B[1m\x1B[31m' + string + '\x1B[39m';
+};
+
+var server = app.listen(app.get('port'), function() {
+  console.log('[Express] Server started in %s mode, port %s', highlight(app.get('env')), highlight(app.get('port')) );
 });
 
 
 process.on('SIGTERM', function() {
-  console.log('Received kill signal (SIGTERM), shutting down gracefully.');
+  console.log('[Express] Received kill signal (SIGTERM), shutting down gracefully.');
   server.close(function() {
-    console.log('Closed out remaining connections.');
+    console.log('[Express] Closed out remaining connections.');
     process.exit();
   });
 
   setTimeout(function() {
-    console.error('Could not close connections in time, forcefully shutting down');
+    console.error('[Express] Could not close connections in time, forcefully shutting down');
     process.exit(1);
   }, 30000);
 });
