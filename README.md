@@ -23,7 +23,7 @@ Read the [Cache Manifest Validator API documentation](https://github.com/fhember
 
 (The MIT-License)
 
-Copyright (c) 2011-2013 Frederic Hemberger
+Copyright (c) 2011-2014 Frederic Hemberger
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
