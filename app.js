@@ -64,20 +64,7 @@ var server = app.listen(app.get('port'), function() {
   console.log('[Express] Server started in %s mode, port %s', highlight(app.get('env')), highlight(app.get('port')) );
 });
 
-
-process.on('SIGTERM', function() {
-  console.log('[Express] Received kill signal (SIGTERM), shutting down gracefully.');
-  server.close(function() {
-    console.log('[Express] Closed out remaining connections.');
-    process.exit();
-  });
-
-  setTimeout(function() {
-    console.error('[Express] Could not close connections in time, forcefully shutting down');
-    process.exit(1);
-  }, 30000);
-});
-
+require('./lib/graceful-shutdown.js')(server);
 
 // Expose application instance for testing
 module.exports = app;
