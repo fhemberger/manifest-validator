@@ -16,32 +16,6 @@ global.console.log = function(){
 // -- Tests -------------------------------------------------------------------
 describe('[routes/api.js] API route specific functions', function() {
 
-  describe('#cleanupLogUrl()', function() {
-    it('should work without parameters', function() {
-      apiRoute.cleanupLogUrl().should.equal('/api/validate?');
-      apiRoute.cleanupLogUrl('').should.equal('/api/validate?');
-      apiRoute.cleanupLogUrl({}).should.equal('/api/validate?');
-    });
-
-
-    it('should strip out values for the key "directinput"', function() {
-      apiRoute.cleanupLogUrl({
-        directinput : 'CACHE%20MANIFEST',
-        callback    : 'myFunction'
-      }).should.equal('/api/validate?directinput=&callback=myFunction');
-    });
-
-
-    it('should serialize all key/value pairs', function() {
-      apiRoute.cleanupLogUrl({
-        foo : 'fooValue',
-        bar : 'barValue',
-        baz : ''
-      }).should.equal('/api/validate?foo=fooValue&bar=barValue&baz=');
-    });
-  });
-
-
   describe('#dispatchAPI()', function() {
     var dispatchFunction, result;
 
@@ -58,7 +32,10 @@ describe('[routes/api.js] API route specific functions', function() {
 
     it('should exit with the HTTP status code given', function() {
       dispatchFunction = apiRoute.dispatchAPI(mock.req, mock.res),
-      result           = dispatchFunction({'foo' : 'bar'}, 100);
+      result           = dispatchFunction({
+        result : {'foo' : 'bar'},
+        statusCode: 100
+      });
 
       mock.res.HTTPStatusCode.should.equal(100);
       mock.res.testResult.should.include.keys('foo');
@@ -68,7 +45,9 @@ describe('[routes/api.js] API route specific functions', function() {
 
     it('should return a JSON response by default', function() {
       dispatchFunction = apiRoute.dispatchAPI(mock.req, mock.res),
-      result           = dispatchFunction({'foo' : 'bar'});
+      result           = dispatchFunction({
+        result : {'foo' : 'bar'}
+      });
 
       mock.res.HTTPHeader.should.include.keys('Access-Control-Allow-Origin');
       mock.res.HTTPHeader['Access-Control-Allow-Origin'].should.equal('*');
@@ -85,21 +64,27 @@ describe('[routes/api.js] API route specific functions', function() {
 
 
     it('should return a JSONP response if a callback parameter is set', function() {
-      dispatchFunction = apiRoute.dispatchAPI(mock.req, mock.res, {'callback' : 'myFunction'}),
-      result           = dispatchFunction({'foo' : 'bar'});
+      mock.req.query.callback = 'myFunction';
+      dispatchFunction = apiRoute.dispatchAPI(mock.req, mock.res),
+      result           = dispatchFunction({
+        result : {'foo' : 'bar'}
+      });
 
       mock.res.HTTPHeader.should.include.keys('Content-Type');
       mock.res.HTTPHeader['Content-Type'].should.equal('text/javascript; charset=utf-8');
 
-      mock.req.param.callback.should.equal('myFunction');
+      mock.req.query.callback.should.equal('myFunction');
     });
 
 
     it('should return a JSONP response with the default callback name if an invalid callback function name is set', function() {
-      dispatchFunction = apiRoute.dispatchAPI(mock.req, mock.res, {'callback' : '☺'}),
-      result           = dispatchFunction({'foo' : 'bar'});
+      mock.req.query.callback = '☺';
+      dispatchFunction = apiRoute.dispatchAPI(mock.req, mock.res),
+      result           = dispatchFunction({
+        result : {'foo' : 'bar'}
+      });
 
-      mock.req.param.callback.should.equal('callback');
+      mock.req.query.callback.should.equal('callback');
     });
   });
 

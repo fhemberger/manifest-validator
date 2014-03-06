@@ -5,51 +5,44 @@ var manifestController  = require('../lib/manifest_controller'),
     analytics           = require('../lib/analytics');
 
 
-
-function cleanupLogUrl(param) {
-  var output = [];
-
-  // Strip directinput content from logging
-  if (param && param.directinput) { param.directinput = ''; }
-
-  for (var key in param) {
-    output.push(key + '=' + param[key]);
-  }
-  return '/api/validate?' + output.join('&');
-}
-
-
-function logAPICall(req, param) {
-  var userAgent = req.header('User-Agent') ? decodeURIComponent(req.header('User-Agent')) : '',
-      loggedUrl = cleanupLogUrl(param);
+function logAPICall(req, validationResponse) {
+  var userAgent = req.header('User-Agent')
+        ? decodeURIComponent(req.header('User-Agent'))
+        : '';
 
   // Log API requests for debugging
-  console.log('API call:',
-    "\n\t" + req.method + ' ' + loggedUrl,
-    "\n\tUser-Agent: " + userAgent
-  );
+  var log = {
+    method    : req.method,
+    source    : validationResponse.source,
+    userAgent : userAgent
+  };
+  if (validationResponse.uri) {
+    log.uri = validationResponse.uri;
+  }
+  console.log('API call:', log);
 
-  analytics.trackPiwik(req, param);
+  analytics.trackPiwik(req, validationResponse.source);
 }
 
 
-function dispatchAPI(req, res, param) {
-  param = param || {};
-
-  return function(result, status) {
+function dispatchAPI(req, res) {
+  return function(validationResponse) {
 
     // If a staus is explicitly set, it's an invalid API call
-    if (status) { return res.send(status, result); }
+    if (validationResponse.statusCode && validationResponse.statusCode !== 200) {
+      res.header('Connection', 'close');
+      return res.send(validationResponse.statusCode, validationResponse.result);
+    }
 
-    logAPICall(req, param);
+    logAPICall(req, validationResponse);
 
     // Add CORS header
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'X-Requested-With');
 
-    // Defalut response is JSON if 'callback' is not specified
-    if (param && !param.callback) {
-      return res.json(result);
+    // Default response is JSON if 'callback' is not specified
+    if ( !(req.query && req.query.callback) ) {
+      return res.json(validationResponse.result);
     }
 
     // Otherwise send JSONP
@@ -59,12 +52,11 @@ function dispatchAPI(req, res, param) {
     }
 
     // Only allow valid callback names
-    param.callback = isValidFunctionName(param.callback)
-      ? param.callback
+    req.query.callback = isValidFunctionName(req.query.callback)
+      ? req.query.callback
       : 'callback';
 
-    if (process.env.NODE_ENV === 'test') { req.param = param; }
-    res.jsonp(result);
+    res.jsonp(validationResponse.result);
   };
 }
 
@@ -80,18 +72,23 @@ exports.index = function(req, res) {
 };
 
 
-exports.validate = function(req, res) {
-  manifestController.dispatch(dispatchAPI, req, res);
+exports.validateGET = function(req, res) {
+  manifestController.dispatchGET(req, res, dispatchAPI);
+};
+
+
+exports.validatePOST = function(req, res) {
+  manifestController.dispatchPOST(req, res, dispatchAPI);
 };
 
 
 // Expose private functions in testing environment
 if (process.env.NODE_ENV === 'test') {
   module.exports = {
-    cleanupLogUrl : cleanupLogUrl,
     logAPICall    : logAPICall,
     dispatchAPI   : dispatchAPI,
     index         : exports.index,
-    validate      : exports.validate
+    validateGET   : exports.validateGET,
+    validatePOST  : exports.validatePOST
   };
 }

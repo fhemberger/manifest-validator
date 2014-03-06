@@ -19,6 +19,7 @@ app.use(express.compress());
 app.use(express.favicon(__dirname + '/public/favicon.ico', { maxAge: oneDayInMilliseconds * 30 }));
 app.use(express.static(__dirname + '/public', { maxAge: oneDayInMilliseconds }));
 app.use(app.router);
+app.locals.lang = require('./config/messages.json');
 app.disable('x-powered-by');
 
 
@@ -37,21 +38,15 @@ app.configure('production', function() {
 
 
 // API
-var apiMiddleware = [
-  express.multipart(),
-  express.urlencoded(),
-  routes.api.validate
-];
-
 app.get( '/api',          routes.api.index);
-app.get( '/api/validate', apiMiddleware);
-app.post('/api/validate', apiMiddleware);
+app.get( '/api/validate', routes.api.validateGET);
+app.post('/api/validate', routes.api.validatePOST);
 
 
 // HTML
 // Don't call the result page directly
 app.get( '/validate',     function(req, res) { res.redirect('/'); });
-app.post('/validate',     /*express.multipart(), express.urlencoded(), */routes.html.validate);
+app.post('/validate',     routes.html.validate);
 app.get( '/',             routes.html.index);
 app.get( '*',             routes.html.error404);
 

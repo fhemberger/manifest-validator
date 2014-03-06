@@ -2,6 +2,7 @@
 
 exports.req = {
   method : 'GET',
+  query  : {},
   params : [],
   url    : '',
   header : function() { return ''; }
@@ -38,7 +39,7 @@ exports.res = {
   local  : function() {},
   render : function(template, value) { this.end(value); },
   send   : function(status, value) {
-    if (typeof status !== 'number') {
+    if (arguments.length === 1) {
       this.end(status);
     } else {
       this.status(status).end(value);

@@ -6,7 +6,7 @@ html
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
 
     - var titlePrefix = ''
-    - if (view === 'result') titlePrefix = isValid ? '[Valid] ' : '[Invalid] '
+    - if (view === 'result') titlePrefix = result.isValid ? '[Valid] ' : '[Invalid] '
     title #{titlePrefix}Cache Manifest Validator
 
     meta(name="description", content="Validate your HTML5 Appcache online: Cache Manifest Validator for web application offline storage.")

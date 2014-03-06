@@ -17,7 +17,7 @@ function dispatchTest(req, res) {
 
 
 // -- Tests -------------------------------------------------------------------
-describe('manifestController (API and HTML agnostic)', function() {
+describe('[manifest_controller.js] manifestController', function() {
   var req, res;
 
   beforeEach(function() {
@@ -26,26 +26,26 @@ describe('manifestController (API and HTML agnostic)', function() {
   });
 
   it('should fail without parameters', function() {
-    manifestController.dispatch(dispatchTest, req, res);
+    manifestController.dispatchGET(req, res, dispatchTest);
     should.exist(res.testResult);
     res.statusCode.should.equal(400);
   });
 
 
   it('should fail with unknown parameters', function() {
-    req.body = { unknownparameter: true };
+    req.query = { unknownparameter: true };
 
-    manifestController.dispatch(dispatchTest, req, res);
+    manifestController.dispatchGET(req, res, dispatchTest);
     should.exist(res.testResult);
     res.statusCode.should.equal(400);
   });
 
 
   it('should fail if the URL does not point to a manifest file', function(done) {
-    req.body = { uri: 'http://www.example.com/' };
+    req.query = { uri: 'http://www.example.com/' };
     req.form = undefined;
 
-    manifestController.dispatch(dispatchTest, req, res);
+    manifestController.dispatchGET(req, res, dispatchTest);
     should.exist(res.testResult);
     setTimeout(function() {
       res.testResult.should.have.ownProperty('isValid');
@@ -59,10 +59,10 @@ describe('manifestController (API and HTML agnostic)', function() {
   describe('Direct input', function() {
 
     it('should fail on invalid manifest', function() {
-      req.body = { directinput: 'INVALID CACHE MANIFEST' };
+      req.query = { directinput: 'INVALID CACHE MANIFEST' };
       req.form = undefined;
 
-      manifestController.dispatch(dispatchTest, req, res);
+      manifestController.dispatchGET(req, res, dispatchTest);
       should.exist(res.testResult);
       res.testResult.should.have.ownProperty('isValid');
       res.testResult.isValid.should.be.false;
@@ -70,10 +70,10 @@ describe('manifestController (API and HTML agnostic)', function() {
 
 
     it('should succeed on valid manifest', function() {
-      req.body = { directinput: 'CACHE MANIFEST' };
+      req.query = { directinput: 'CACHE MANIFEST' };
       req.form = undefined;
 
-      manifestController.dispatch(dispatchTest, req, res);
+      manifestController.dispatchGET(req, res, dispatchTest);
       should.exist(res.testResult);
       res.testResult.should.have.ownProperty('isValid');
       res.testResult.isValid.should.be.true;
