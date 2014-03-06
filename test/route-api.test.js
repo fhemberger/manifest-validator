@@ -14,7 +14,7 @@ global.console.log = function(){
 
 
 // -- Tests -------------------------------------------------------------------
-describe('API route specific functions', function() {
+describe('[routes/api.js] API route specific functions', function() {
 
   describe('#cleanupLogUrl()', function() {
     it('should work without parameters', function() {

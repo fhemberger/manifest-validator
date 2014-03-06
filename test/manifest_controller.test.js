@@ -9,9 +9,9 @@ var ASYNC_TIMEOUT = 2000;
 
 
 function dispatchTest(req, res) {
-  return function(result, status) {
-    res.testResult = result;
-    res.statusCode = status || 200;
+  return function(validationResponse) {
+    res.testResult = validationResponse.result;
+    res.statusCode = validationResponse.statusCode || 200;
   };
 }
 

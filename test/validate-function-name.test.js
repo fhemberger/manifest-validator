@@ -5,7 +5,7 @@ var isValidFunctionName = require('../lib/validate-function-name');
 
 
 // -- Tests -------------------------------------------------------------------
-describe('#isValidFunctionName()', function() {
+describe('[validate-function-name.js] #isValidFunctionName()', function() {
   it('should return true if function only consists of alphabetic ascii characters or "$" and "_"', function() {
     isValidFunctionName('UPPERCASE').should.be.true;
     isValidFunctionName('lowercase').should.be.true;

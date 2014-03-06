@@ -4,7 +4,7 @@ var should   = require('chai').should(),
     Manifest = require('../lib/manifest.js');
 
 
-describe('Manifest', function() {
+describe('[manifest.js] Manifest', function() {
   var manifest;
 
   afterEach(function() {
