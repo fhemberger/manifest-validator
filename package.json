@@ -1,6 +1,6 @@
 {
   "name": "manifest-validator",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A Node.js based validator for appcache manifest files",
   "keywords": [
     "appcache",
@@ -18,15 +18,17 @@
     "coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -R spec"
   },
   "dependencies": {
-    "busboy" : "*",
-    "express": "~3.4",
+    "busboy": "*",
+    "express": "^3.4",
     "piwik-tracker": "*",
     "jade": "*",
-    "request": "*"
+    "request": "*",
+    "extend": "^1.2",
+    "js-yaml": "^3.0"
   },
   "devDependencies": {
-    "chai": "~1.x",
-    "mocha": "~1.x",
-    "supertest": "~0.9"
+    "chai": "^1.x",
+    "mocha": "^1.x",
+    "supertest": "^0.9"
   }
 }

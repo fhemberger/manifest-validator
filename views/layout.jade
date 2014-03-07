@@ -41,4 +41,6 @@ html
     - if (view === 'index')
       script(src="http://code.jquery.com/jquery.min.js")
       script(src="/tabs.js")
-    include _analytics
+
+    - if (config.analytics.enabled)
+      include _analytics
