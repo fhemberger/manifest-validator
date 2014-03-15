@@ -29,13 +29,18 @@ app.use(express.compress());
 app.use(express.favicon(__dirname + '/public/favicon.ico', { maxAge: config.express.caching.favicon }));
 app.use(express.static(__dirname + '/public', { maxAge: config.express.caching.static }));
 
+
+if (config.logging.access.enabled) {
+  app.use(express.logger({
+    format: config.logging.access.format || 'default'
+  }));
+}
+
 if (config.env === 'development') {
-    app.use(express.logger('dev'));
     app.use(express.errorHandler());
 }
 
 if (config.env === 'production') {
-    app.use(express.logger());
     app.set('view cache');
 }
 

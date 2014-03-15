@@ -12,7 +12,11 @@ upload:
   maxFilesize: 1048576                 # 1 MB
   timeout: 10000
 logging:
-  enabled: true
+  access:
+    enabled: true
+    format: dev
+  application:
+    enabled: true
 analytics:
   enabled: true
   siteId: 0

@@ -19,7 +19,7 @@ function logAPICall(req, validationResponse) {
   if (validationResponse.uri) {
     log.uri = validationResponse.uri;
   }
-  console.log('API call:', log);
+  console.log('API call:', JSON.stringify(log, null, '    ').replace(/[{}"]/g, ''));
 
   analytics.trackPiwik(req, validationResponse.source);
 }
