@@ -11,23 +11,23 @@ var routes = {
 };
 
 // all environments
-app.set('port', config.express.port);
-app.set('env', config.env);
-app.set('baseurl', config.express.baseurl);
-app.set('views', __dirname + '/views');
+app.set('port',        config.express.port);
+app.set('env',         config.env);
+app.set('baseurl',     config.express.baseurl);
+app.set('views',       __dirname + '/views');
 app.set('view engine', 'jade');
+app.disable('x-powered-by');
 
 app.locals = {
   lang   : yaml('./config/messages.yml'),
   config : config
 };
 
+
 // TODO: All middleware will be removed from Express 4.0, must be added to package.json separately
 app.use(express.compress());
 app.use(express.favicon(__dirname + '/public/favicon.ico', { maxAge: config.express.caching.favicon }));
 app.use(express.static(__dirname + '/public', { maxAge: config.express.caching.static }));
-app.disable('x-powered-by');
-
 
 if (config.env === 'development') {
     app.use(express.logger('dev'));

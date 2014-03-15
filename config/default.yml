@@ -2,14 +2,14 @@ express:
   port: 3000
   baseurl: "http://localhost:3000"
   shutdownTimeout: 30000
-  caching:                      # one day in milliseconds ^= 86400000
-    favicon: 2592000000         # 30 days
-    public: 86400000            # one day
+  caching:                             # one day in milliseconds ^= 86400000
+    favicon: 2592000000                # 30 days
+    public: 86400000                   # one day
 uri:
   timeout: 10000
   ressourceTimeout: 10000
 upload:
-  maxFilesize: 1048576          # 1 MB
+  maxFilesize: 1048576                 # 1 MB
   timeout: 10000
 logging:
   enabled: true
