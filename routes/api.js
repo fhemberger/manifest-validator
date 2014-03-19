@@ -2,7 +2,8 @@
 
 var manifestController  = require('../lib/manifest_controller'),
     isValidFunctionName = require('../lib/validate-function-name'),
-    analytics           = require('../lib/analytics');
+    analytics           = require('../lib/analytics'),
+    config              = require('../lib/config.js');
 
 
 function logAPICall(req, validationResponse) {
@@ -19,7 +20,10 @@ function logAPICall(req, validationResponse) {
   if (validationResponse.uri) {
     log.uri = validationResponse.uri;
   }
-  console.log('API call:', JSON.stringify(log, null, '    ').replace(/[{}"]/g, ''));
+
+  if (config.logging.application.enabled) {
+    console.log('API call:', JSON.stringify(log, null, '    ').replace(/[{}"]/g, ''));
+  }
 
   analytics.trackPiwik(req, validationResponse.source);
 }
