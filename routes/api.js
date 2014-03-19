@@ -52,7 +52,7 @@ function dispatchAPI(req, res) {
     // Otherwise send JSONP
     // JSONP accepts only GET requests by spec
     if (req.method !== 'GET') {
-      return res.send('405');
+      return res.send(405);
     }
 
     // Only allow valid callback names
