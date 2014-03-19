@@ -45,7 +45,7 @@ function dispatchAPI(req, res) {
     res.header('Access-Control-Allow-Headers', 'X-Requested-With');
 
     // Default response is JSON if 'callback' is not specified
-    if ( !(req.query && req.query.callback) ) {
+    if ( typeof req.query.callback !== 'string' ) {
       return res.json(validationResponse.result);
     }
 
