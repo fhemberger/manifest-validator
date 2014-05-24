@@ -23,6 +23,11 @@ html
         - var icon = "data:image/png,%89PNG%0D%0A%1A%0A%00%00%00%0DIHDR%00%00%00%10%00%00%00%10%08%02%00%00%00%90%91h6%00%00%00%19IDAT(%91c%BCd%AB%C2%40%0A%60%22I%F5%A8%86Q%0DCJ%03%00%DE%B5%01S%07%88%8FG%00%00%00%00IEND%AEB%60%82"
       link(rel="icon", href="#{icon}", type="image/png")
 
+    - if (config.analytics.enabled)
+      script.
+        var _paq=_paq||[];
+        _paq.push(["trackPageView"], ["enableLinkTracking"], ["setTrackerUrl", "#{config.analytics.host}/piwik.php"], ["setSiteId", "#{config.analytics.siteId}"]);
+
     link(rel="stylesheet", href="/validator.min.css")
   body
     #header(role="banner")
@@ -43,4 +48,4 @@ html
       script(src="/tabs.js")
 
     - if (config.analytics.enabled)
-      include _analytics
+      script(src="#{config.analytics.host}/piwik.js",async)
