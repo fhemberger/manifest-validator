@@ -2,31 +2,7 @@
 
 var manifestController  = require('../lib/manifest_controller'),
     isValidFunctionName = require('../lib/validate-function-name'),
-    analytics           = require('../lib/analytics'),
-    config              = require('../lib/config.js');
-
-
-function logAPICall(req, validationResponse) {
-  var userAgent = req.header('User-Agent')
-        ? decodeURIComponent(req.header('User-Agent'))
-        : '';
-
-  // Log API requests for debugging
-  var log = {
-    method    : req.method,
-    source    : validationResponse.source,
-    userAgent : userAgent
-  };
-  if (validationResponse.uri) {
-    log.uri = validationResponse.uri;
-  }
-
-  if (config.logging.application.enabled) {
-    console.log('API call:', JSON.stringify(log, null, '    ').replace(/[{}"]/g, ''));
-  }
-
-  analytics.trackPiwik(req, validationResponse.source);
-}
+    analytics           = require('../lib/analytics');
 
 
 function dispatchAPI(req, res) {
@@ -38,7 +14,7 @@ function dispatchAPI(req, res) {
       return res.send(validationResponse.statusCode, validationResponse.result);
     }
 
-    logAPICall(req, validationResponse);
+    analytics.trackPiwik(req, validationResponse.source);
 
     // Add CORS header
     res.header('Access-Control-Allow-Origin', '*');
@@ -89,7 +65,6 @@ exports.validatePOST = function(req, res) {
 // Expose private functions in testing environment
 if (process.env.NODE_ENV === 'test') {
   module.exports = {
-    logAPICall    : logAPICall,
     dispatchAPI   : dispatchAPI,
     index         : exports.index,
     validateGET   : exports.validateGET,
