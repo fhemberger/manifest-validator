@@ -45,7 +45,7 @@ html
 
     - if (view === 'index')
       script(src="http://code.jquery.com/jquery.min.js")
-      script(src="/tabs.js")
+      include _tabs
 
     - if (config.analytics.enabled)
       script(src="#{config.analytics.host}/piwik.js",async)
