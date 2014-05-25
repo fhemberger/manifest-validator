@@ -1,7 +1,7 @@
 'use strict';
 
 require('chai').should();
-var analytics = require('../lib/analytics.js');
+var analytics = require('../app/lib/analytics.js');
 
 describe('[analytics.js] Analytics', function() {
 

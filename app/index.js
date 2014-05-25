@@ -19,15 +19,15 @@ app.set('view engine', 'jade');
 app.disable('x-powered-by');
 
 app.locals = {
-  lang   : yaml('./config/messages.yml'),
+  lang   : yaml('../config/messages.yml'),
   config : config
 };
 
 
 // TODO: All middleware will be removed from Express 4.0, must be added to package.json separately
 app.use(express.compress());
-app.use(express.favicon(__dirname + '/public/favicon.ico', { maxAge: config.express.caching.favicon }));
-app.use(express.static(__dirname + '/public', { maxAge: config.express.caching.static }));
+app.use(express.favicon('public/favicon.ico', { maxAge: config.express.caching.favicon }));
+app.use(express.static('public', { maxAge: config.express.caching.static }));
 
 
 if (config.logging.access.enabled) {

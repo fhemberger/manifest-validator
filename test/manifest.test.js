@@ -1,7 +1,7 @@
 'use strict';
 
 var should   = require('chai').should(),
-    Manifest = require('../lib/manifest.js');
+    Manifest = require('../app/lib/manifest.js');
 
 
 describe('[manifest.js] Manifest', function() {

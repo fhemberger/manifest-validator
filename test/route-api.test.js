@@ -2,7 +2,7 @@
 
 require('chai').should();
 var mock     = require('./helper/mock'),
-    apiRoute = require('../routes/api.js');
+    apiRoute = require('../app/routes/api.js');
 
 
 // -- Tests -------------------------------------------------------------------

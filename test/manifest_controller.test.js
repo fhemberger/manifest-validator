@@ -2,7 +2,7 @@
 
 var should             = require('chai').should(),
     mock               = require('./helper/mock'),
-    manifestController = require('../lib/manifest_controller.js');
+    manifestController = require('../app/lib/manifest_controller.js');
 
 
 var ASYNC_TIMEOUT = 2000;

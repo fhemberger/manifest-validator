@@ -2,7 +2,7 @@
 
 var request = require('supertest'),
     expect  = require('chai').expect,
-    app     = require('../app.js');
+    app     = require('../app/index.js');
 
 
 var json = function(res) {

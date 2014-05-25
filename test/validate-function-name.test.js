@@ -1,7 +1,7 @@
 'use strict';
 
 require('chai').should();
-var isValidFunctionName = require('../lib/validate-function-name');
+var isValidFunctionName = require('../app/lib/validate-function-name');
 
 
 // -- Tests -------------------------------------------------------------------
