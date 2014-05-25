@@ -2,9 +2,9 @@ express:
   port: 3000
   baseurl: "http://localhost:3000"
   shutdownTimeout: 30000
-  caching:                             # one day in milliseconds ^= 86400000
-    favicon: 2592000000                # 30 days
-    public: 86400000                   # one day
+  caching:
+    favicon: 0
+    public: 0
 uri:
   timeout: 10000
   ressourceTimeout: 10000
@@ -18,6 +18,6 @@ logging:
   application:
     enabled: true
 analytics:
-  enabled: true
+  enabled: false
   siteId: 0
   host:
