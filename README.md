@@ -1,5 +1,5 @@
 # Cache Manifest Validator
-[![Build Status](travis-image)](travis-url) [![Dependency Status](david-image)](david-url) [![devDependency Status](david-dev-image)](david-dev-url)
+[![Build Status][travis-image]][travis-url] [![Dependency Status][david-image]][david-url] [![devDependency Status][david-dev-image]][david-dev-url]
 
 A Node.js based validator for cache manifest files: [manifest-validator.com](http://manifest-validator.com)
 
