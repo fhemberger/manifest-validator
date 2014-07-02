@@ -1,5 +1,5 @@
 # Cache Manifest Validator
-[![Build Status](https://travis-ci.org/fhemberger/manifest-validator.png)](https://travis-ci.org/fhemberger/manifest-validator) [![Dependency Status](https://david-dm.org/fhemberger/manifest-validator.png)](https://david-dm.org/fhemberger/manifest-validator) [![devDependency Status](https://david-dm.org/fhemberger/manifest-validator/dev-status.png)](https://david-dm.org/fhemberger/manifest-validator#info=devDependencies)
+[![Build Status](travis-image)](travis-url) [![Dependency Status](david-image)](david-url) [![devDependency Status](david-dev-image)](david-dev-url)
 
 A Node.js based validator for cache manifest files: [manifest-validator.com](http://manifest-validator.com)
 
@@ -42,3 +42,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+[travis-image]: http://img.shields.io/travis/fhemberger/manifest-validator.svg
+[travis-url]: https://travis-ci.org/fhemberger/manifest-validator
+[david-image]: http://img.shields.io/david/fhemberger/manifest-validator.svg
+[david-url]: https://david-dm.org/fhemberger/manifest-validator
+[david-dev-image]: http://img.shields.io/david/dev/fhemberger/manifest-validator.svg
+[david-dev-url]: https://david-dm.org/fhemberger/manifest-validator#info=devDependencies
