@@ -161,6 +161,58 @@ describe('[manifest.js] Manifest', function() {
       manifest.errors[2].error.should.equal('ERR_WHITELIST_SAME_SCHEME');
     });
 
+    it('should warn if a FALLBACK entry is identical to a NETWORK entry', function () {
+      // 7.7.6: a resource's URL matched by online whitelist stops the flow,
+      // and ignores fallback namespace
+      var manifest = new Manifest([
+        "CACHE MANIFEST",
+        "NETWORK:",
+        "/foo",
+        "FALLBACK:",
+        "/foo /bar"
+      ].join('\n'));
+      var isValid = manifest.validate();
+
+      isValid.should.be.true;
+
+      manifest.warnings.should.have.length(5);
+
+      manifest.warnings[4].error.should.equal('ERR_FALLBACK_IGNORED');
+    });
+
+    it('should warn if a FALLBACK entry is the sub-resource of a NETWORK entry', function () {
+      // 7.7.6: a resource's URL matched by prefix in online whitelist stops
+      // the flow, and ignores fallback namespace
+      var manifest = new Manifest([
+        "CACHE MANIFEST",
+        "NETWORK:",
+        "/foo",
+        "FALLBACK:",
+        "/foo/bar /baz"
+      ].join('\n'));
+      var isValid = manifest.validate();
+
+      isValid.should.be.true;
+
+      manifest.warnings.should.have.length(5);
+
+      manifest.warnings[4].error.should.equal('ERR_FALLBACK_IGNORED');
+    });
+
+    it('should pass if a FALLBACK entry is the super-resource of a NETWORK entry', function () {
+      // 7.7.6: will override fallback for the sub-resource only
+      var manifest = new Manifest([
+        "CACHE MANIFEST",
+        "NETWORK:",
+        "/foo/bar",
+        "FALLBACK:",
+        "/foo /bar"
+      ].join('\n'));
+      var isValid = manifest.validate();
+
+      isValid.should.be.true;
+    });
+
   });
 
 });
