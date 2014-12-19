@@ -66,14 +66,14 @@ describe('API', function() {
       request(app)
         .get('/api/validate?directinput=CACHE%20MANIFEST&callback=myFunction')
         .expect('Content-Type', 'text/javascript; charset=utf-8')
-        .expect(200, /^typeof myFunction\b/, done);
+        .expect(200, /^\/\*\*\/ typeof myFunction\b/, done);
     });
 
     it('should return a JSONP response with the default callback name if an invalid callback function name is set', function(done) {
       request(app)
         .get('/api/validate?directinput=CACHE%20MANIFEST&callback=☺')
         .expect('Content-Type', 'text/javascript; charset=utf-8')
-        .expect(200, /^typeof callback\b/, done);
+        .expect(200, /^\/\*\*\/ typeof callback\b/, done);
     });
 
   });

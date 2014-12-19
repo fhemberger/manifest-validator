@@ -157,7 +157,9 @@ Manifest.prototype.validate = function() {
       },
       parsingMode = 'explicit',
       isValidResource,
-      baseUrl, firstUrl, absoluteUrl;
+      baseUrl, firstUrl, absoluteUrl,
+      whitelisted = {},
+      fallbacks = {};
 
   // Check empty file
   if (manifest.length === 0) {
@@ -244,6 +246,8 @@ Manifest.prototype.validate = function() {
               content: currentLine
             };
           }
+        } else {
+            fallbacks[firstUrl] = i;
         }
         break;
 
@@ -261,6 +265,8 @@ Manifest.prototype.validate = function() {
               error:   'ERR_WHITELIST_SAME_SCHEME',
               content: currentLine
             };
+          } else {
+              whitelisted[absoluteUrl] = i;
           }
         }
         break;
@@ -279,6 +285,17 @@ Manifest.prototype.validate = function() {
           };
         }
         break;
+    }
+
+    for (var w in whitelisted) {
+      for (var f in fallbacks) {
+        if (w === f || f.indexOf(w) === 0) {
+          this.warnings[fallbacks[f]] = {
+            error:   'ERR_FALLBACK_IGNORED',
+            content: "lines " + whitelisted[w] + " and " + fallbacks[f],
+          }
+        }
+      }
     }
 
     // Push the results to the corresponding arrays
