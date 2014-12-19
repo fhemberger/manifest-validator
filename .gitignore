@@ -1,0 +1,4 @@
+config/production.yml
+coverage/*
+node_modules/*
+public/test/*
