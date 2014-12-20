@@ -21,9 +21,9 @@
     "build": "npm run optimize:css && npm run optimize:js"
   },
   "dependencies": {
-    "busboy": "*",
+    "busboy": "^0.x",
     "clean-css": "^3.0.1",
-    "express": "^3.4",
+    "express": "^3.x",
     "extend": "^2.0",
     "istanbul": "^0.3.5",
     "jade": "*",
