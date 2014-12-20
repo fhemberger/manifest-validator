@@ -15,20 +15,26 @@
   "scripts": {
     "start": "NODE_ENV=production PORT=8735 node app/index.js",
     "test": "NODE_ENV=test node_modules/.bin/mocha",
-    "coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -R spec"
+    "coverage": "NODE_ENV=test node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- -R spec",
+    "optimize:css": "node_modules/.bin/cleancss -o public/validator.min.css public/validator.css",
+    "optimize:js": "node_modules/.bin/uglifyjs public/tabs.js -cmo public/tabs.min.js",
+    "build": "npm run optimize:css && npm run optimize:js"
   },
   "dependencies": {
     "busboy": "*",
+    "clean-css": "^3.0.1",
     "express": "^3.4",
-    "piwik-tracker": "*",
+    "extend": "^2.0",
+    "istanbul": "^0.3.5",
     "jade": "*",
+    "js-yaml": "^3.0",
+    "piwik-tracker": "*",
     "request": "*",
-    "extend": "^1.2",
-    "js-yaml": "^3.0"
+    "uglifyjs": "^2.3.6"
   },
   "devDependencies": {
     "chai": "^1.x",
-    "mocha": "^1.x",
+    "mocha": "^2.x",
     "supertest": "^0.x"
   }
 }
