@@ -13,7 +13,7 @@
   "homepage": "http://manifest-validator.com/",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=production PORT=8735 node app/index.js",
+    "start": "node app/index.js",
     "test": "NODE_ENV=test node_modules/.bin/mocha",
     "coverage": "NODE_ENV=test node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- -R spec",
     "optimize:css": "node_modules/.bin/cleancss -o public/validator.min.css public/validator.css",
@@ -23,11 +23,10 @@
   "dependencies": {
     "busboy": "^0.x",
     "clean-css": "^3.0.1",
+    "config": "^1.10.0",
     "express": "^3.x",
-    "extend": "^2.0",
     "istanbul": "^0.3.5",
     "jade": "*",
-    "js-yaml": "^3.0",
     "piwik-tracker": "*",
     "request": "*",
     "uglifyjs": "^2.3.6"

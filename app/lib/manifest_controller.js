@@ -1,7 +1,7 @@
 'use strict';
 
 var Busboy   = require('busboy'),
-    config   = require('./config.js'),
+    config   = require('config'),
     Manifest = require('./manifest.js');
 
 

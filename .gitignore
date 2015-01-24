@@ -1,4 +1,4 @@
-config/production.yml
+config/production.js
 coverage/*
 node_modules/*
 public/test/*

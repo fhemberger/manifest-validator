@@ -1,7 +1,7 @@
 'use strict';
 
 var isValidUrl = require('./validate-url'),
-    config     = require('./config.js'),
+    config     = require('config'),
     request    = require('request'),
     url        = require('url'),
     zlib       = require('zlib');

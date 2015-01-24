@@ -1,0 +1,16 @@
+{
+  "ERR_INVALID_URI": "Invalid URI.",
+  "ERR_LOAD_URI": "Error loading manifest file by URI.",
+  "ERR_INVALID_FILE": "Invalid file type: Only text files allowed.",
+  "ERR_FILE_TOO_LARGE": "Uploaded file exceeds size limit.",
+  "ERR_EMPTY_FILE": "Could not validate manifest: File is empty.",
+  "ERR_RESOURCE_ERROR": "Error parsing resource",
+  "ERR_MANIFEST_MIMETYPE": "Cache manifest must be a plain text file.",
+  "ERR_MANIFEST_HEADER": "Cache manifest must start with 'CACHE MANIFEST' as first line.",
+  "ERR_MANIFEST_INVALID_RESOURCE": "Invalid resource identifier.",
+  "ERR_FALLBACK_SAME_ORIGIN": "Fallback resources must be from the same origin (i.e. identical protocol, hostname and port) as manifest file.",
+  "ERR_WHITELIST_SAME_SCHEME": "Whitelist resource must have the same URI scheme (i.e. protocol) as manifest file.",
+  "ERR_INVALID_SETTING": "Invalid setting (only WHATWG spec)",
+  "WARN_MANIFEST_MIMETYPE": "Cache manifest file should be of mime type text/cache-manifest, although text/plain is also accepted.",
+  "WARN_SETTINGS_ONLY_WHATWG": "The SETTINGS section is only part of the WHATWG spec (not W3C) and may be not supported by browsers yet."
+}

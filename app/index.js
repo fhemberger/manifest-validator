@@ -1,8 +1,7 @@
 'use strict';
 
 var express = require('express'),
-    yaml    = require('./lib/require-yaml'),
-    config  = require('./lib/config.js'),
+    config  = require('config'),
     app     = express();
 
 var routes = {
@@ -11,15 +10,15 @@ var routes = {
 };
 
 // all environments
-app.set('port',        config.express.port);
-app.set('env',         config.env);
+app.set('port',        process.env.PORT || config.express.port || 3000);
+app.set('env',         process.env.NODE_ENV || config.env || 'development');
 app.set('baseurl',     config.express.baseurl);
 app.set('views',       __dirname + '/views');
 app.set('view engine', 'jade');
 app.disable('x-powered-by');
 
 app.locals = {
-  lang   : yaml('../config/messages.yml'),
+  lang   : require('../config/messages.json'),
   config : config
 };
 
