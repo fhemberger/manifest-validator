@@ -29,7 +29,7 @@
     "jade": "*",
     "piwik-tracker": "*",
     "request": "*",
-    "uglifyjs": "^2.3.6"
+    "uglify-js": "^2.3.6"
   },
   "devDependencies": {
     "chai": "^1.x",
