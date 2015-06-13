@@ -1,5 +1,8 @@
 'use strict';
 
+const logPath = process.env.LOG_PATH || '/var/log';
+
+
 module.exports = {
     server: {
         baseUrl: 'http://manifest-validator.com',
@@ -15,7 +18,7 @@ module.exports = {
                 reporter: require('good-file'),
                 events: { log: '*', error: '*' },
                 config: {
-                    path   : '~/log/manifest-validator',
+                    path   : logPath,
                     prefix : 'event',
                     rotate : 'weekly'
                 }
@@ -24,7 +27,7 @@ module.exports = {
                 reporter: require('good-file'),
                 events: { response: '*' },
                 config: {
-                    path   : '~/log/manifest-validator',
+                    path   : logPath,
                     prefix : 'access',
                     rotate : 'weekly'
                 }
