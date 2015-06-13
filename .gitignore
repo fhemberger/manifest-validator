@@ -1,0 +1,4 @@
+node_modules/**
+public/**
+coverage.html
+npm-debug.log

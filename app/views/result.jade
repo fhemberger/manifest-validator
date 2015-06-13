@@ -1,0 +1,46 @@
+extends layout
+
+block content
+  - if (result.isValid)
+    h2(class="result valid") This document was successfully checked
+
+    - if (result.warnings && result.warnings.length)
+      h3 Warnings:
+      ul
+        - for (var e in result.warnings)
+          li Line #{parseInt(e,10)+1}:&nbsp;
+            strong #{lang[result.warnings[e].error]}
+            br
+            - if (result.warnings[e].content)
+              pre
+                code #{result.warnings[e].content}
+
+  - else
+    h2(class="result invalid") Error found while checking this document
+
+    - if (result.errors && result.errors.length)
+      h3 Validation Results:
+      - if (typeof result.errors === 'string')
+        p #{lang[result.errors]}
+      - else
+        ul
+          - for (var e in result.errors)
+            li Line #{parseInt(e,10)+1}:&nbsp;
+              strong #{lang[result.errors[e].error]}
+              br
+              - if (result.errors[e].content)
+                pre
+                  code #{result.errors[e].content}
+
+    - if (result.resources && result.resources.length)
+      h3 Resource Check Results:
+      ul
+        - for (var r in result.resources)
+          li Line #{parseInt(r,10)+1}:&nbsp;
+            strong Resource not found
+            br
+            pre
+              code #{result.resources[r]}
+
+  a(href="/", class="home") Return to Homepage
+
