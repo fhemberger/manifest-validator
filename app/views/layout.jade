@@ -6,27 +6,27 @@ html
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
 
     - var titlePrefix = ''
-    - if (view === 'result') titlePrefix = result.isValid ? '[Valid] ' : '[Invalid] '
+    - if (_view === 'result') titlePrefix = result.isValid ? '[Valid] ' : '[Invalid] '
     title #{titlePrefix}Cache Manifest Validator
 
     meta(name="description", content="Validate your HTML5 Appcache online: Cache Manifest Validator for web application offline storage.")
-    meta(name="keywords",    content="cache, manifest, cache manifest, application cache, validation, offline, html5")
+    meta(name="keywords",    content="cache, manifest, cache manifest, appcache, application cache, validation, offline, html5")
     meta(name="author",      content="Frederic Hemberger")
     meta(name="robots",      content="index, follow")
 
-    - if (view === 'index')
+    - if (_view === 'index')
       link(rel="icon", href="/favicon.ico")
-    - else if (view === 'result')
+    - else if (_view === 'result')
       - if (isValid)
         - var icon = "data:image/png,%89PNG%0D%0A%1A%0A%00%00%00%0DIHDR%00%00%00%10%00%00%00%10%08%02%00%00%00%90%91h6%00%00%00%19IDAT(%91c%0C%DD%10%C5%40%0A%60%22I%F5%A8%86Q%0DCJ%03%00dy%01%7F%0C%9F0%7D%00%00%00%00IEND%AEB%60%82"
       - else
         - var icon = "data:image/png,%89PNG%0D%0A%1A%0A%00%00%00%0DIHDR%00%00%00%10%00%00%00%10%08%02%00%00%00%90%91h6%00%00%00%19IDAT(%91c%BCd%AB%C2%40%0A%60%22I%F5%A8%86Q%0DCJ%03%00%DE%B5%01S%07%88%8FG%00%00%00%00IEND%AEB%60%82"
       link(rel="icon", href="#{icon}", type="image/png")
 
-    - if (config.analytics.enabled)
+    - if (_analytics.enabled)
       script.
         var _paq=_paq||[];
-        _paq.push(["trackPageView"], ["enableLinkTracking"], ["setTrackerUrl", "#{config.analytics.host}/piwik.php"], ["setSiteId", "#{config.analytics.siteId}"]);
+        _paq.push(["trackPageView"], ["enableLinkTracking"], ["setTrackerUrl", "#{_analytics.host}/piwik.php"], ["setSiteId", "#{_analytics.siteId}"]);
 
     link(rel="stylesheet", href="/validator.min.css")
   body
@@ -43,9 +43,9 @@ html
       | Licenced under the <a href="http://www.opensource.org/licenses/mit-license">MIT License</a>,
       | source code available at <a href="https://github.com/fhemberger/manifest-validator/">GitHub</a>.
 
-    - if (view === 'index')
+    - if (_view === 'index')
       script(src="http://code.jquery.com/jquery.min.js")
       include _tabs
 
-    - if (config.analytics.enabled)
-      script(src="#{config.analytics.host}/piwik.js",async)
+    - if (_analytics.enabled)
+      script(src="#{_analytics.host}/piwik.js",async)

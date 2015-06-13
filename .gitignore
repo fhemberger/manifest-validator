@@ -1,4 +1,4 @@
-config/production.js
-coverage/*
-node_modules/*
-public/test/*
+node_modules/**
+public/**
+coverage.html
+npm-debug.log

@@ -1,9 +1,10 @@
 {
   "name": "manifest-validator",
-  "version": "0.3.2",
-  "description": "A Node.js based validator for appcache manifest files",
+  "version": "1.0.0",
+  "description": "An io.js based validator for appcache manifest files",
   "keywords": [
     "appcache",
+    "application cache",
     "offline",
     "cache manifest",
     "validator",
@@ -11,29 +12,43 @@
   ],
   "author": "Frederic Hemberger (http://frederic-hemberger.de/)",
   "homepage": "http://manifest-validator.com/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fhemberger/manifest-validator.git"
+  },
   "private": true,
   "scripts": {
-    "start": "node app/index.js",
-    "test": "NODE_ENV=test node_modules/.bin/mocha",
-    "coverage": "NODE_ENV=test node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- -R spec",
-    "optimize:css": "node_modules/.bin/cleancss -o public/validator.min.css public/validator.css",
-    "optimize:js": "node_modules/.bin/uglifyjs public/tabs.js -cmo public/tabs.min.js",
-    "build": "npm run optimize:css && npm run optimize:js"
+    "start": "iojs index.js",
+    "lab": "NODE_ENV=test iojs node_modules/.bin/lab",
+    "test": "npm run lab -- -v -L test/**/*.js",
+    "coverage": "npm run lab -- -L -I Reflect,_babelPolyfill,core,regeneratorRuntime -T test/lab-babel.js",
+    "coverage:html": "npm run coverage -- -r html -o coverage.html",
+    "build": "npm run build:css; npm run build:js",
+    "build:css": "cleancss -o public/validator.min.css public/validator.css",
+    "build:js": "uglifyjs public/tabs.js -cmo public/tabs.min.js"
   },
   "dependencies": {
-    "busboy": "^0.x",
+    "babel": "^5.5.7",
+    "babel-eslint": "^3.1.15",
+    "boom": "^2.7.2",
     "clean-css": "^3.0.1",
-    "config": "^1.10.0",
-    "express": "^3.x",
-    "istanbul": "^0.3.5",
-    "jade": "*",
+    "config": "^1.12.0",
+    "crumb": "^4.0.3",
+    "good": "^6.1.0",
+    "good-console": "^5.x.x",
+    "good-file": "^5.0.1",
+    "hapi": "^8.4.0",
+    "hapi-swagger": "^0.7.2",
+    "hoek": "^2.12.0",
+    "jade": "^1.11.0",
+    "joi": "^6.2.0",
     "piwik-tracker": "*",
-    "request": "*",
+    "request": "^2.57.0",
     "uglify-js": "^2.3.6"
   },
   "devDependencies": {
-    "chai": "^1.x",
-    "mocha": "^2.x",
-    "supertest": "^0.x"
+    "code": "^1.4.0",
+    "lab": "^5.7.0",
+    "sinon": "^1.14.1"
   }
 }

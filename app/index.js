@@ -1,71 +1,60 @@
 'use strict';
 
-var express = require('express'),
-    config  = require('config'),
-    app     = express();
+const Config = require('config');
+const Hapi   = require('hapi');
 
-var routes = {
-    html: require('./routes/html.js'),
-    api : require('./routes/api.js')
-};
-
-// all environments
-app.set('port',        process.env.PORT || config.express.port || 3000);
-app.set('env',         process.env.NODE_ENV || config.env || 'development');
-app.set('baseurl',     config.express.baseurl);
-app.set('views',       __dirname + '/views');
-app.set('view engine', 'jade');
-app.disable('x-powered-by');
-
-app.locals = {
-  lang   : require('../config/messages.json'),
-  config : config
-};
+const server = new Hapi.Server();
+const Routes = require('./routes.js');
 
 
-// TODO: All middleware will be removed from Express 4.0, must be added to package.json separately
-app.use(express.compress());
-app.use(express.favicon('public/favicon.ico', { maxAge: config.express.caching.favicon }));
-app.use(express.static('public', { maxAge: config.express.caching.static }));
-
-
-if (config.logging.access.enabled) {
-  app.use(express.logger({
-    format: config.logging.access.format || 'default'
-  }));
-}
-
-if (config.env === 'development') {
-    app.use(express.errorHandler());
-}
-
-if (config.env === 'production') {
-    app.set('view cache');
-}
-
-
-// API
-app.get( '/api',          routes.api.index);
-app.get( '/api/validate', routes.api.validateGET);
-app.post('/api/validate', routes.api.validatePOST);
-
-
-// HTML
-app.get( '/validate',     function(req, res) { res.redirect('/'); });
-app.post('/validate',     routes.html.validate);
-app.get( '/',             routes.html.index);
-app.get( '*',             routes.html.error404);
-
-
-var highlight = function(string) {
-  return '\x1B[1m\x1B[31m' + string + '\x1B[39m';
-};
-
-var server = app.listen(app.get('port'), function() {
-  console.log('[Express] Server started in %s mode, port %s', highlight(app.get('env')), highlight(app.get('port')) );
+server.connection({
+    port: Number(process.env.PORT) || Config.server.port,
+    routes: {
+        // hapi is really nitpicking when it comes to object validation
+        security: Config.util.getConfigSources()[0].parsed.server.security
+    }
 });
 
-require('./lib/graceful-shutdown.js')(server);
 
-// Expose application instance for testing
-module.exports = app;
+server.views({
+    engines: {
+        jade: require('jade')
+    },
+    // During development, disable view caching
+    isCached     : (process.env.NODE_ENV === 'production'),
+    layout       : false,
+    path         : Config.server.views,
+
+    // Default context
+    context: {
+        lang       : require('../config/messages.json'),
+        _analytics : Config.analytics,
+        _api       : { docs: Config.swagger.documentationPath },
+        _env       : process.env.NODE_ENV || 'development'
+    }
+});
+
+
+server.register(
+    [
+        { register: require('good'),         options: Config.good },
+        { register: require('crumb'),        options: Config.crumb },
+        { register: require('hapi-swagger'), options: Config.swagger },
+        { register: require('./lib/hapi-prefilter.js') }
+    ],
+    function (err) {
+
+        if (err) { throw err; }
+
+        server.route(Routes);
+        server.start(function () {
+
+            if (process.env.NODE_ENV === 'test') { return; }
+            server.log('info', `Server running at: ${server.info.uri}`);
+        });
+    }
+);
+
+
+module.exports = server;
+

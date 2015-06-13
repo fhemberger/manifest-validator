@@ -1,63 +1,62 @@
 'use strict';
 
-var config       = require('config'),
-    PiwikTracker = require('piwik-tracker'),
-    piwikInstance;
+const Config       = require('config');
+const PiwikTracker = require('piwik-tracker');
 
 
-if (
-  config.analytics.enabled &&
-  config.analytics.siteId && config.analytics.siteId !== '0' &&
-  config.analytics.host && config.analytics.host !== ''
-) {
-  piwikInstance = new PiwikTracker(config.analytics.siteId, config.analytics.host);
+const internals = {};
+
+internals.getRemoteAddr = function (req) {
+
+    if (req.ip)             { return req.ip; }
+    if (req._remoteAddress) { return req._remoteAddress; }
+    if (req.socket.socket)  { return req.socket.socket.remoteAddress; }
+    return req.socket.remoteAddress;
 }
 
-function getRemoteAddr(req){
-  if (req.ip) return req.ip;
-  if (req._remoteAddress) return req._remoteAddress;
-  var sock = req.socket;
-  if (sock.socket) return sock.socket.remoteAddress;
-  return sock.remoteAddress;
+
+if (Config.analytics.enabled) {
+    internals.piwikInstance = new PiwikTracker(Config.analytics.siteId, Config.analytics.host);
 }
+
 
 module.exports.trackPiwik = function(req, source) {
-  if (!piwikInstance) { return; }
 
-  source = source || '[not set]';
+    if (!internals.piwikInstance) { return; }
 
-  /**
-   * At the moment, Piwik only covers user agent detection for the usual
-   * desktop and mobile browsers, everything else is listed as 'unknown'.
-   * So the raw user agent string is also sent as custom variable.
-   */
-  var userAgent = req.header('User-Agent') || '[not set]';
-  userAgent = /^Mozilla/.test( userAgent )
-    ? '[browser]'
-    : userAgent;
+    source = source || '[not set]';
 
-  var remoteAddr = getRemoteAddr(req);
-  var trackParameter = {
-    url: req.app.get('baseurl') + '/api/validate',
-    action_name: 'API',
-    ua: req.header('User-Agent'),
-    lang: req.header('Accept-Language'),
-    cvar: JSON.stringify({
-      '1': ['API version', 'v1'],
-      '2': ['HTTP method', req.method],
-      '3': ['Validation source', source],
-      '4': ['User-Agent', userAgent]
-    })
-  };
+    /**
+     * At the moment, Piwik only covers user agent detection for the usual
+     * desktop and mobile browsers, everything else is listed as 'unknown'.
+     * So the raw user agent string is also sent as custom variable.
+     */
+    var userAgent = req.headers['user-agent'] || '[not set]';
+    userAgent = /^Mozilla/.test( userAgent )
+        ? '[browser]'
+        : userAgent;
 
-  if (
-    config.analytics.tokenAuth && config.analytics.tokenAuth !== '' &&
-    remoteAddr
-  ) {
-    trackParameter.token_auth = config.analytics.tokenAuth;
-    trackParameter.cip = remoteAddr;
-  }
+    var remoteAddr = internals.getRemoteAddr(req);
+    var trackParameter = {
+        url         : `${Config.server.baseUrl}/api/validate`,
+        action_name : 'API',
+        ua          : req.headers['user-agent'],
+        lang        : req.headers['accept-language'],
+        cvar        : JSON.stringify({
+            '1': ['API version',       'v1'],
+            '2': ['HTTP method',       req.method],
+            '3': ['Validation source', source],
+            '4': ['User-Agent',        userAgent]
+        })
+    };
 
-  piwikInstance.track(trackParameter);
+    if (
+        Config.analytics.tokenAuth && Config.analytics.tokenAuth !== '' &&
+        remoteAddr
+    ) {
+        trackParameter.token_auth = Config.analytics.tokenAuth;
+        trackParameter.cip = remoteAddr;
+    }
 
+    internals.piwikInstance.track(trackParameter);
 };

@@ -21,6 +21,7 @@ block content
       h2 Validate by URI
       p Validate a document online:
       form(action="/validate", method="post")
+        input(type="hidden", name="crumb", value="#{crumb}")
         label(title="Address of manifest to validate", for="uri") Address:
         input(type="url", name="uri", id="uri", size="45", placeholder="http://www.example.com/manifest.appcache", required)
         input(type="submit", value="Check")
@@ -29,6 +30,7 @@ block content
       h2 Validate by File Upload
       p Upload a document for validation:
       form(action="/validate", enctype="multipart/form-data", method="post")
+        input(type="hidden", name="crumb", value="#{crumb}")
         label(title="Choose a local file to upload and validate", for="upload") File:
         input(type="file", name="upload", id="upload", required)
         input(type="submit", value="Check")
@@ -37,6 +39,7 @@ block content
       h2 Validate by Direct Input
       p(title="Paste a complete cache manifest here") Enter the manifest to validate:
       form(action="/validate", method="post")
+        input(type="hidden", name="crumb", value="#{crumb}")
         textarea(id="text", name="directinput", rows="12", cols="70", required)
         input(type="submit", value="Check")
 
@@ -76,4 +79,4 @@ block content
         | when you provide the optional callback parameter.
 
       p
-        | Read the <a href="https://github.com/fhemberger/manifest-validator/wiki/API-Documentation">Cache Manifest Validator API documentation</a> on GitHub.
+        | Try out the interactive <a href="#{_api.docs}">Cache Manifest Validator API documentation</a>.

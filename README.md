@@ -1,29 +1,28 @@
 # Cache Manifest Validator
 [![Build Status][travis-image]][travis-url] [![Dependency Status][david-image]][david-url] [![devDependency Status][david-dev-image]][david-dev-url]
 
-A Node.js based validator for cache manifest files: [manifest-validator.com](http://manifest-validator.com)
+An io.js based validator for cache manifest files: [manifest-validator.com](http://manifest-validator.com)
 
-If you're looking for an easy way to create a manifest file for an existing project, try James Pearce's
-[confess.js](https://github.com/jamesgpearce/confess), a PhantomJS based tool to enumerate a web app's resources.
+If you're looking for an easy way to create a manifest file for an existing project, try James Pearce's [confess.js](https://github.com/jamesgpearce/confess), a PhantomJS based tool to enumerate a web app's resources.
 
 
 ## Installation
 
-Using [Node.js](http://nodejs.org/), first get all required dependencies with `npm install`, then use `node app.js` to start the application. Unit tests can be executed with `npm test`.
+Using [io.js](http://iojs.org/), first get all required dependencies with `npm install`, then use `npm start` to start the application. Unit tests can be executed with `npm test`.
 
 
 ## API
 
 The validation service can also be used by external tools. Either provide an URI to your manifest or the file's content as a string (GET and POST are supported). The API either returns a JSON or [JSONP](http://en.wikipedia.org/wiki/JSON#JSONP), when you provide the optional callback parameter.
 
-Read the [Cache Manifest Validator API documentation](https://github.com/fhemberger/manifest-validator/wiki/API-Documentation).
+Try out the interactive [Cache Manifest Validator API documentation](http://manifest-validator.com/documentation).
 
 
 ## License
 
 (The MIT-License)
 
-Copyright (c) 2011-2014 Frederic Hemberger
+Copyright (c) 2011-2015 Frederic Hemberger
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
