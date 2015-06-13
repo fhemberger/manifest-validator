@@ -17,7 +17,7 @@ internals.getRemoteAddr = function (req) {
 
 
 if (Config.analytics.enabled) {
-    internals.piwikInstance = new PiwikTracker(Config.analytics.siteId, Config.analytics.host);
+    internals.piwikInstance = new PiwikTracker(Config.analytics.siteId, `${Config.analytics.host}/piwik.php`);
 }
 
 
