@@ -9,8 +9,10 @@ const internals = {};
 
 internals.getRemoteAddr = function (req) {
 
+    if (!req)               { return; }
     if (req.ip)             { return req.ip; }
     if (req._remoteAddress) { return req._remoteAddress; }
+    if (!req.socket)        { return; }
     if (req.socket.socket)  { return req.socket.socket.remoteAddress; }
     return req.socket.remoteAddress;
 };

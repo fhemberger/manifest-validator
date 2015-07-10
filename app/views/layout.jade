@@ -6,7 +6,7 @@ html
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
 
     - var titlePrefix = ''
-    - if (_view === 'result') titlePrefix = result.isValid ? '[Valid] ' : '[Invalid] '
+    - if (_view === 'result' && result) titlePrefix = result.isValid ? '[Valid] ' : '[Invalid] '
     title #{titlePrefix}Cache Manifest Validator
 
     meta(name="description", content="Validate your HTML5 Appcache online: Cache Manifest Validator for web application offline storage.")
@@ -39,9 +39,8 @@ html
 
     #footer(role="contentinfo")
       | Cache Manifest Validator by <a href="http://frederic-hemberger.de">Frederic Hemberger</a>.
-      | Powered by <a href="http://nodejs.org/">NodeJS</a>, running on <a href="http://uberspace.de/">Uberspace</a>.
-      | Licenced under the <a href="http://www.opensource.org/licenses/mit-license">MIT License</a>,
-      | source code available at <a href="https://github.com/fhemberger/manifest-validator/">GitHub</a>.
+      | source code available at <a href="https://github.com/fhemberger/manifest-validator/">GitHub</a>
+      | (<a href="https://github.com/fhemberger/manifest-validator/issues">Report issue</a>).
 
     - if (_view === 'index')
       script(src="http://code.jquery.com/jquery.min.js")
