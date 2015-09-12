@@ -45,7 +45,7 @@
     "joi": "^6.2.0",
     "piwik-tracker": "*",
     "request": "^2.57.0",
-    "uglify-js": "^2.3.6",
+    "uglify-js": "^2.4.24",
     "vision": "^3.0.0"
   },
   "devDependencies": {
