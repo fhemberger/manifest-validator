@@ -16,27 +16,10 @@ server.connection({
 });
 
 
-server.views({
-    engines: {
-        jade: require('jade')
-    },
-    // During development, disable view caching
-    isCached     : (process.env.NODE_ENV === 'production'),
-    layout       : false,
-    path         : Config.server.views,
-
-    // Default context
-    context: {
-        lang       : require('../config/messages.json'),
-        _analytics : Config.analytics,
-        _api       : { docs: Config.swagger.documentationPath },
-        _env       : process.env.NODE_ENV || 'development'
-    }
-});
-
-
 server.register(
     [
+        { register: require('inert') },
+        { register: require('vision') },
         { register: require('good'),         options: Config.good },
         { register: require('crumb'),        options: Config.crumb },
         { register: require('hapi-swagger'), options: Config.swagger },
@@ -45,6 +28,24 @@ server.register(
     function (err) {
 
         if (err) { throw err; }
+
+        server.views({
+            engines: {
+                jade: require('jade')
+            },
+            // During development, disable view caching
+            isCached     : (process.env.NODE_ENV === 'production'),
+            layout       : false,
+            path         : Config.server.views,
+
+            // Default context
+            context: {
+                lang       : require('../config/messages.json'),
+                _analytics : Config.analytics,
+                _api       : { docs: Config.swagger.documentationPath },
+                _env       : process.env.NODE_ENV || 'development'
+            }
+        });
 
         server.route(Routes);
         server.start(function () {

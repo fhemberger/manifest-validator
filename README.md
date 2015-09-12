@@ -1,14 +1,14 @@
 # Cache Manifest Validator
 [![Build Status][travis-image]][travis-url] [![Dependency Status][david-image]][david-url] [![devDependency Status][david-dev-image]][david-dev-url]
 
-An io.js based validator for cache manifest files: [manifest-validator.com](http://manifest-validator.com)
+An Node.js based validator for cache manifest files: [manifest-validator.com](http://manifest-validator.com)
 
 If you're looking for an easy way to create a manifest file for an existing project, try James Pearce's [confess.js](https://github.com/jamesgpearce/confess), a PhantomJS based tool to enumerate a web app's resources.
 
 
 ## Installation
 
-Using [io.js](http://iojs.org/), first get all required dependencies with `npm install`, then use `npm start` to start the application. Unit tests can be executed with `npm test`.
+Using [Node.js](http://nodejs.org/), first get all required dependencies with `npm install`, then use `npm start` to start the application. Unit tests can be executed with `npm test`.
 
 
 ## API

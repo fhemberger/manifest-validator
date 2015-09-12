@@ -1,6 +1,5 @@
 'use strict';
 
-const Hapi = require('hapi');
 const Code = require('code');
 const Lab = require('lab');
 
@@ -34,17 +33,13 @@ describe('Hapi server', function () {
     });
 
 
-    it('returns a Hapi server instance', function (done) {
+    describe('Hapi server', function () {
 
-        expect( server ).to.be.an.instanceof( Hapi.Server );
-        done();
-    });
+        it('is running', function (done) {
 
-
-    it('has registered plugins', function (done) {
-
-        expect( Object.keys(server.plugins).length ).to.be.above( 1 );
-        done();
+            expect(new Date(server.info.started)).to.be.a.date();
+            done();
+        });
     });
 
 
