@@ -18,9 +18,9 @@
   },
   "private": true,
   "scripts": {
-    "start": "iojs index.js",
-    "lab": "NODE_ENV=test iojs node_modules/.bin/lab",
-    "test": "npm run lab -- -v test/**/*.js",
+    "start": "node index.js",
+    "lab": "NODE_ENV=test node node_modules/.bin/lab",
+    "test": "npm run lab -- -v test/server/**/*.js",
     "coverage": "npm run lab -- -L -I Reflect,_babelPolyfill,core,regeneratorRuntime -T test/lab-babel.js",
     "coverage:html": "npm run coverage -- -r html -o coverage.html",
     "build": "npm run build:css; npm run build:js",
