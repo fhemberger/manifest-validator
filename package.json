@@ -1,6 +1,6 @@
 {
   "name": "manifest-validator",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "An Node.js based validator for appcache manifest files",
   "keywords": [
     "appcache",
