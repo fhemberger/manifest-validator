@@ -2,7 +2,7 @@
 
 const Joi = require('joi');
 const Config = require('config');
-const Request = require('request');
+const requestRetry = require('requestretry');
 const Url = require('url');
 const Zlib = require('zlib');
 
@@ -44,7 +44,7 @@ Manifest.prototype.loadFromUri = function (manifestUri, callback) {
         return;
     }
 
-    Request.get({
+    requestRetry({
         uri      : manifestUri,
         // Return response as buffer, so we can check for deflate/gzip response
         encoding : null,
@@ -70,9 +70,7 @@ Manifest.prototype.loadFromUri = function (manifestUri, callback) {
                 return;
             }
         } catch(e) {
-            // TODO: Debug statement in production, had some strange output in the error logs.
-            // Should be removed again
-            console.error('manifest.js: Content-Type');
+            callback('ERR_MANIFEST_MIMETYPE');
             return;
         }
 
@@ -137,7 +135,11 @@ Manifest.prototype.checkResources = function (callback) {
 
     function headRequest (lineNumber, resource) {
 
-        Request.head({uri: resource}, function (err, res) {
+        requestRetry({
+            uri: resource,
+            method: 'HEAD',
+            retryDelay: 500
+        }, function (err, res) {
 
             processRequest(err, res, lineNumber);
         });
