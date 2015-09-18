@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  - if (result.isValid)
+  - if (result && result.isValid)
     h2(class="result valid") This document was successfully checked
 
     - if (result.warnings && result.warnings.length)
