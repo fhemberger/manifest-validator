@@ -23,7 +23,8 @@ server.register(
         { register: require('good'),         options: Config.good },
         { register: require('crumb'),        options: Config.crumb },
         { register: require('hapi-swagger'), options: Config.swagger },
-        { register: require('./lib/hapi-prefilter.js') }
+        { register: require('./lib/hapi-prefilter.js') },
+        { register: require('./lib/hapi-errorpages.js') }
     ],
     function (err) {
 

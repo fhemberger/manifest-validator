@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  #description
+    - if (statusCode)
+
+      - if (statusCode === 404)
+        h3 The page you're looking for does not exist.
+        | You may want to head back to the homepage.
+
+      - if (statusCode === 403)
+        h3 You are not allowed to access this page.
+        | This may happen if you have deactivated cookies in your browser. Please activate them and try again.
+
+    - else
+      h3 An unknown error occured.
+      | Please go back to the previous page and try again.
+
+
+    | <br>If you think something is broken, please
+    | <a href="https://github.com/fhemberger/manifest-validator/issues">report the problem</a>.
+
+    a(href="/", class="home") Return to Homepage
+
