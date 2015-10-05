@@ -42,7 +42,7 @@
     "hoek": "2.16.3",
     "inert": "3.0.1",
     "jade": "1.11.0",
-    "joi": "6.7.1",
+    "joi": "6.9.0",
     "piwik-tracker": "0.1.2",
     "request": "2.64.0",
     "requestretry": "1.5.0",
