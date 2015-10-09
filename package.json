@@ -40,7 +40,7 @@
     "hapi": "10.4.1",
     "hapi-swagger": "2.0.0",
     "hoek": "2.16.3",
-    "inert": "3.0.1",
+    "inert": "3.1.0",
     "jade": "1.11.0",
     "joi": "6.7.1",
     "piwik-tracker": "0.1.2",
