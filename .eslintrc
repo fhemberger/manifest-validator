@@ -1,7 +1,7 @@
 {
-  "parser": "babel-eslint",
   "env": {
-    "node": true
+    "node": true,
+    "es6": true
   },
   "rules": {
     "complexity": [1, 8],
