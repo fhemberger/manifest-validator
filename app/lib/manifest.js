@@ -35,7 +35,7 @@ var Manifest = function (content) {
     this.invalidResources = [];
 };
 
-
+/* eslint-disable complexity */
 Manifest.prototype.loadFromUri = function (manifestUri, callback) {
     var self = this;
 
@@ -101,7 +101,7 @@ Manifest.prototype.loadFromUri = function (manifestUri, callback) {
         return decodeResponse(null, body);
     });
 };
-
+/* eslint-enable complexity */
 
 Manifest.prototype.checkResources = function (callback) {
 
@@ -155,7 +155,7 @@ Manifest.prototype.checkResources = function (callback) {
     }
 };
 
-
+/* eslint-disable complexity */
 Manifest.prototype.validate = function () {
 
     var manifest = stringToArray(this.content),
@@ -318,6 +318,7 @@ Manifest.prototype.validate = function () {
     }
     return (this.errors.length === 0);
 };
+/* eslint-enable complexity */
 
 
 module.exports = Manifest;
