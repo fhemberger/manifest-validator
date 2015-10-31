@@ -28,7 +28,7 @@
     "build:js": "uglifyjs public/tabs.js -cmo public/tabs.min.js"
   },
   "dependencies": {
-    "boom": "2.10.0",
+    "boom": "2.10.1",
     "clean-css": "3.4.6",
     "config": "1.16.0",
     "crumb": "5.0.0",
