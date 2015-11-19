@@ -42,7 +42,7 @@
     "jade": "^1.11.0",
     "joi": "^7.0.0",
     "piwik-tracker": "^0.1.2",
-    "request": "^2.65.0",
+    "request": "^2.67.0",
     "requestretry": "^1.5.0",
     "uglify-js": "^2.5.0",
     "vision": "^4.0.0"
