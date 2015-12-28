@@ -28,28 +28,28 @@
     "build:js": "uglifyjs public/tabs.js -cmo public/tabs.min.js"
   },
   "dependencies": {
-    "boom": "^3.0.0",
-    "clean-css": "^3.4.6",
-    "config": "^1.16.0",
+    "boom": "^3.1.1",
+    "clean-css": "^3.4.8",
+    "config": "^1.17.1",
     "crumb": "^5.0.0",
     "good": "^6.4.0",
-    "good-console": "^5.1.0",
-    "good-file": "^5.1.0",
-    "hapi": "^11.0.3",
-    "hapi-swagger": "^2.2.1",
-    "hoek": "^3.0.0",
+    "good-console": "^5.2.0",
+    "good-file": "^5.1.1",
+    "hapi": "^11.1.4",
+    "hapi-swagger": "^3.0.1",
+    "hoek": "^3.0.4",
     "inert": "^3.2.0",
     "jade": "^1.11.0",
-    "joi": "^7.0.0",
+    "joi": "^7.1.0",
     "piwik-tracker": "^0.1.2",
     "request": "^2.67.0",
-    "requestretry": "^1.5.0",
+    "requestretry": "^1.6.0",
     "uglify-js": "^2.6.1",
-    "vision": "^4.0.0"
+    "vision": "^4.0.1"
   },
   "devDependencies": {
     "code": "^2.0.1",
-    "lab": "^7.1.0",
+    "lab": "^8.0.1",
     "sinon": "1.17.2"
   }
 }
