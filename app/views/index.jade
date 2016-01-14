@@ -1,6 +1,25 @@
 extends layout
 
 block content
+
+  #warning
+    h3 Notice
+    p
+      | Appcache has been <a href="https://www.fxsitecompat.com/en-US/docs/2015/application-cache-api-has-been-deprecated/">
+      | marked as deprecated</a> in favor of the Service Worker API since Firefox 44
+      | and will be <a href="https://www.fxsitecompat.com/en-US/docs/2016/application-cache-support-will-be-removed/">
+      | removed in the future</a>.<br>
+      | Likewise Chrome will disable appcache over HTTP soon, as a first step to deprecating this API.
+
+    h4 Service Worker API
+    ul
+      li
+        a(href="https://www.w3.org/TR/service-workers/") W3C Specification (Working Draft)
+      li
+        a(href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API") MDN: Service Worker API
+      li
+        a(href="http://www.html5rocks.com/en/tutorials/service-worker/introduction/") HTML5 Rocks: Introduction to Service Worker
+
   ul#tab-header(role="tablist")
     li(role="tab",class="active")
       a(href="#validate-by-uri", accesskey="u")
