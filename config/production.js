@@ -34,9 +34,6 @@ module.exports = {
             }
         ]
     },
-    swagger: {
-        basePath: 'http://manifest-validator.com'
-    },
     analytics: {
         enabled: false
     }

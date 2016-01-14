@@ -19,7 +19,6 @@ server.register(
         { register: require('inert') },
         { register: require('vision') },
         { register: require('good'),         options: Config.get('good') },
-        { register: require('crumb'),        options: Config.get('crumb') },
         { register: require('hapi-swagger'), options: Config.get('swagger') },
         { register: require('./lib/hapi-prefilter.js') },
         { register: require('./lib/hapi-errorpages.js') }

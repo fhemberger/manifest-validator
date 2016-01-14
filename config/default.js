@@ -36,18 +36,11 @@ module.exports = {
             config: { format: 'YYYY-MM-DDTHH:mm:ss.SSS[Z]' }
         }]
     },
-    // hapi CSRF token management
-    crumb: {
-        cookieOptions: {
-            isHttpOnly: true,
-            isSecure: false
-        }
-    },
     swagger: {
         documentationPath : '/documentation',
-        apiVersion        : '1.0',
         payloadType       : 'form',
         info: {
+            version     : '1.0',
             title       : Package.name,
             description : Package.description
         }
@@ -56,40 +49,3 @@ module.exports = {
         enabled: false
     }
 };
-
-
-/*
-module.exports = {
-  express: {
-    port: 3000,
-    baseurl: "http://localhost:3000",
-    shutdownTimeout: 30000,
-    caching: {
-      favicon: 0,
-      public: 0
-    }
-  },
-  uri: {
-    timeout: 10000,
-    ressourceTimeout: 10000
-  },
-  upload: {
-    maxFilesize: 1048576, // 1 MB
-    timeout: 10000
-  },
-  logging: {
-    access: {
-      enabled: true,
-      format: 'dev'
-    },
-    application: {
-      enabled: true
-    }
-  },
-  analytics: {
-    enabled: false,
-    siteId: 0,
-    host: ''
-  }
-};
-*/
