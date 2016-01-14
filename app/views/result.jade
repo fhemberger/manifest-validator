@@ -18,7 +18,7 @@ block content
   - else
     h2(class="result invalid") Error found while checking this document
 
-    - if (result.errors && result.errors.length)
+    - if (result && result.errors && result.errors.length)
       h3 Validation Results:
       - if (typeof result.errors === 'string')
         p #{lang[result.errors]}
@@ -32,7 +32,7 @@ block content
                 pre
                   code #{result.errors[e].content}
 
-    - if (result.resources && result.resources.length)
+    - if (result && result.resources && result.resources.length)
       h3 Resource Check Results:
       ul
         - for (var r in result.resources)
