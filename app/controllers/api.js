@@ -1,6 +1,6 @@
 'use strict';
 
-const Config = require('config');
+const Config = require('ez-config');
 const Hoek = require('hoek');
 const Boom = require('boom');
 const Joi = require('joi');
@@ -103,8 +103,8 @@ exports.index = {
         return reply({
             api: {
                 version       : '1.0',
-                endpoint      : `${Config.server.baseUrl}/api/validate`,
-                documentation : `${Config.server.baseUrl}${Config.swagger.documentationPath}`
+                endpoint      : `${Config.get('server.baseUrl')}/api/validate`,
+                documentation : `${Config.get('server.baseUrl')}${Config.get('swagger.documentationPath')}`
             }
         });
     }

@@ -1,7 +1,7 @@
 'use strict';
 
 const Joi = require('joi');
-const Config = require('config');
+const Config = require('ez-config');
 const requestRetry = require('requestretry');
 const Url = require('url');
 const Zlib = require('zlib');
@@ -48,7 +48,7 @@ Manifest.prototype.loadFromUri = function (manifestUri, callback) {
         uri      : manifestUri,
         // Return response as buffer, so we can check for deflate/gzip response
         encoding : null,
-        timeout  : Config.uri.timeout
+        timeout  : Config.get('uri.timeout')
     },
     function (err, res, body) {
 

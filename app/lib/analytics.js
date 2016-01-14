@@ -1,7 +1,7 @@
 'use strict';
 /* eslint-disable camelcase */
 
-const Config       = require('config');
+const Config       = require('ez-config');
 const PiwikTracker = require('piwik-tracker');
 
 
@@ -18,8 +18,8 @@ internals.getRemoteAddr = function (req) {
 };
 
 
-if (Config.analytics.enabled) {
-    internals.piwikInstance = new PiwikTracker(Config.analytics.siteId, `${Config.analytics.host}/piwik.php`);
+if (Config.get('analytics.enabled')) {
+    internals.piwikInstance = new PiwikTracker(Config.get('analytics.siteId'), `${Config.get('analytics.host')}/piwik.php`);
 }
 
 
@@ -41,7 +41,7 @@ module.exports.trackPiwik = function (req, source) {
 
     var remoteAddr = internals.getRemoteAddr(req);
     var trackParameter = {
-        url         : `${Config.server.baseUrl}/api/validate`,
+        url         : `${Config.get('server.baseUrl')}/api/validate`,
         action_name : 'API',
         ua          : req.headers['user-agent'],
         lang        : req.headers['accept-language'],
@@ -54,10 +54,10 @@ module.exports.trackPiwik = function (req, source) {
     };
 
     if (
-        Config.analytics.tokenAuth && Config.analytics.tokenAuth !== '' &&
+        Config.get('analytics.tokenAuth') && Config.get('analytics.tokenAuth') !== '' &&
         remoteAddr
     ) {
-        trackParameter.token_auth = Config.analytics.tokenAuth;
+        trackParameter.token_auth = Config.get('analytics.tokenAuth');
         trackParameter.cip = remoteAddr;
     }
 

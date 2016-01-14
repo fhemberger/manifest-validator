@@ -1,17 +1,15 @@
 'use strict';
 
-const Config = require('config');
+const Config = require('ez-config');
 const Hapi   = require('hapi');
 
 const server = new Hapi.Server();
 const Routes = require('./routes.js');
 
-
 server.connection({
-    port: Number(process.env.PORT) || Config.server.port,
+    port: Number(process.env.PORT) || Config.get('server.port'),
     routes: {
-        // hapi is really nitpicking when it comes to object validation
-        security: Config.util.getConfigSources()[0].parsed.server.security
+        security: Config.get('server.security')
     }
 });
 
@@ -20,9 +18,9 @@ server.register(
     [
         { register: require('inert') },
         { register: require('vision') },
-        { register: require('good'),         options: Config.good },
-        { register: require('crumb'),        options: Config.crumb },
-        { register: require('hapi-swagger'), options: Config.swagger },
+        { register: require('good'),         options: Config.get('good') },
+        { register: require('crumb'),        options: Config.get('crumb') },
+        { register: require('hapi-swagger'), options: Config.get('swagger') },
         { register: require('./lib/hapi-prefilter.js') },
         { register: require('./lib/hapi-errorpages.js') }
     ],
@@ -37,13 +35,13 @@ server.register(
             // During development, disable view caching
             isCached     : (process.env.NODE_ENV === 'production'),
             layout       : false,
-            path         : Config.server.views,
+            path         : Config.get('server.views'),
 
             // Default context
             context: {
                 lang       : require('../config/messages.json'),
-                _analytics : Config.analytics,
-                _api       : { docs: Config.swagger.documentationPath },
+                _analytics : Config.get('analytics'),
+                _api       : { docs: Config.get('swagger.documentationPath') },
                 _env       : process.env.NODE_ENV || 'development'
             }
         });

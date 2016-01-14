@@ -1,6 +1,6 @@
 'use strict';
 
-const Config = require('config');
+const Config = require('ez-config');
 
 const Html = require('./controllers/html.js');
 const Api  = require('./controllers/api.js');
@@ -9,8 +9,8 @@ const Api  = require('./controllers/api.js');
 module.exports = [
     { method: 'GET',    path: '/',              config: Html.index },
     { method: 'GET',    path: '/{param*}',      config: {
-                                                    cache: Config.server.public.cache,
-                                                    handler: { directory: { path: Config.server.public.path } }
+                                                    cache: Config.get('server.public.cache'),
+                                                    handler: { directory: { path: Config.get('server.public.path') } }
                                                 }
     },
 
