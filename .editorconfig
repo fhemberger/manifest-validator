@@ -14,5 +14,5 @@ trim_trailing_whitespace = false
 [{package.json,.travis.yml}]
 indent_size = 2
 
-[*.jade]
+[*.pug]
 indent_size = 2

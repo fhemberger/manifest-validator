@@ -29,7 +29,7 @@ server.register(
 
         server.views({
             engines: {
-                jade: require('jade')
+                pug: require('pug')
             },
             // During development, disable view caching
             isCached     : (process.env.NODE_ENV === 'production'),
