@@ -14,26 +14,6 @@ module.exports = {
         }
     },
     good: {
-        reporters: [
-            {
-                reporter: require('good-file'),
-                events: { log: '*', error: '*' },
-                config: {
-                    path   : logPath,
-                    prefix : 'event',
-                    rotate : 'weekly'
-                }
-            },
-            {
-                reporter: require('good-file'),
-                events: { response: '*' },
-                config: {
-                    path   : logPath,
-                    prefix : 'access',
-                    rotate : 'weekly'
-                }
-            }
-        ]
     },
     analytics: {
         enabled: false

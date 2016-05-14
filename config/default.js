@@ -31,11 +31,9 @@ module.exports = {
     },
     // hapi logging
     good: {
-        reporters: [{
-            reporter: require('good-console'),
-            events: { log: '*', request: '*' },
-            config: { format: 'YYYY-MM-DDTHH:mm:ss.SSS[Z]' }
-        }]
+        ops: {
+            interval: Ms('5m')
+        }
     },
     swagger: {
         documentationPath : '/documentation',
