@@ -1,5 +1,7 @@
 'use strict';
 
+// Set default environment to 'development' for config module
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const Config = require('ez-config');
 const Hapi   = require('hapi');
 
@@ -41,7 +43,7 @@ server.register(
                 lang       : require('../config/messages.json'),
                 _analytics : Config.get('analytics'),
                 _api       : { docs: Config.get('swagger.documentationPath') },
-                _env       : process.env.NODE_ENV || 'development'
+                _env       : process.env.NODE_ENV
             }
         });
 

@@ -1,5 +1,6 @@
 'use strict';
 
+const Ms = require('ms');
 const logPath = process.env.LOG_PATH || '/var/log';
 
 
@@ -8,7 +9,7 @@ module.exports = {
         baseUrl: 'http://manifest-validator.com',
         public: {
             cache: {
-                expiresIn: 24 * 60 * 60 * 1000 // one day
+                expiresIn: ms('1d')
             }
         }
     },

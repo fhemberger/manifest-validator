@@ -1,6 +1,7 @@
 'use strict';
 
 const Path = require('path');
+const Ms = require('ms');
 const Package = require( Path.resolve(process.cwd(), 'package.json') );
 
 
@@ -25,8 +26,8 @@ module.exports = {
         baseUrl: 'http://localhost:3000'
     },
     uri: {
-        timeout: 10000,
-        ressourceTimeout: 10000
+        timeout: Ms('10s'),
+        ressourceTimeout: Ms('10s')
     },
     // hapi logging
     good: {
