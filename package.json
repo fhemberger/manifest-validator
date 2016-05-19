@@ -36,7 +36,7 @@
     "good-console": "^6.1.1",
     "good-squeeze": "^3.0.1",
     "hapi": "^13.4.0",
-    "hapi-swagger": "github:evocateur/hapi-swagger#avoid-static-403-errors",
+    "hapi-swagger": "glennjones/hapi-swagger#6f905bd27766debb0b2bc47f199ae69451ca5138",
     "hoek": "^4.0.0",
     "inert": "^4.0.0",
     "joi": "^8.1.0",
@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "code": "^2.3.0",
-    "lab": "^10.5.1",
+    "lab": "^10.6.0",
     "sinon": "^1.17.4"
   }
 }
