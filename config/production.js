@@ -15,6 +15,18 @@ module.exports = {
     },
     good: {
         reporters: {
+            console: [
+                {
+                    module: 'good-squeeze',
+                    name: 'Squeeze',
+                    args: [{ log: '*', error: '*' }]
+                },
+                {
+                    module: 'good-console',
+                    args: [{ format: 'YYYY-MM-DDTHH:mm:ss.SSS[Z]' }]
+                },
+                'stdout'
+            ],
             influx: [{
                 module: 'good-influx',
                 args: [process.env.INFLUXDB_URL || 'http://localhost:8086/write?db=good']
