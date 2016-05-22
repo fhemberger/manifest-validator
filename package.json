@@ -34,6 +34,7 @@
     "ez-config": "^0.2.1",
     "good": "^7.0.0",
     "good-console": "^6.1.1",
+    "good-influx": "^1.0.1",
     "good-squeeze": "^3.0.1",
     "hapi": "^13.4.0",
     "hapi-swagger": "glennjones/hapi-swagger#6f905bd27766debb0b2bc47f199ae69451ca5138",

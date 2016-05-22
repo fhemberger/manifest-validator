@@ -9,7 +9,7 @@ module.exports = {
         baseUrl: 'http://manifest-validator.com',
         public: {
             cache: {
-                expiresIn: ms('1d')
+                expiresIn: Ms('1d')
             }
         }
     },
