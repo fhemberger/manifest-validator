@@ -14,6 +14,12 @@ module.exports = {
         }
     },
     good: {
+        reporters: {
+            influx: [{
+                module: 'good-influx',
+                args: [process.env.INFLUXDB_URL || 'http://localhost:8086/write?db=good']
+            }]
+        }
     },
     analytics: {
         enabled: false
