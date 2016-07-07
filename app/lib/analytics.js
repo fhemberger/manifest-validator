@@ -39,7 +39,10 @@ module.exports.trackPiwik = function (req, source) {
         ? '[browser]'
         : userAgent;
 
-    var remoteAddr = internals.getRemoteAddr(req);
+    var remoteAddr = req.headers['x-forwarded-for'] ?
+        req.headers['x-forwarded-for'].split(', ')[0] :
+        internals.getRemoteAddr(req);
+
     var trackParameter = {
         url         : `${Config.get('server.baseUrl')}/api/validate`,
         action_name : 'API',
