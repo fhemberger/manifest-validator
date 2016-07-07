@@ -36,7 +36,7 @@
     "good-console": "^6.1.2",
     "good-influx": "^1.0.1",
     "good-squeeze": "^4.0.0",
-    "hapi": "^13.4.1",
+    "hapi": "^13.5.0",
     "hapi-swagger": "glennjones/hapi-swagger#6f905bd27766debb0b2bc47f199ae69451ca5138",
     "hoek": "^4.0.1",
     "inert": "^4.0.0",
