@@ -26,11 +26,7 @@ module.exports = {
                     args: [{ format: 'YYYY-MM-DDTHH:mm:ss.SSS[Z]' }]
                 },
                 'stdout'
-            ],
-            influx: [{
-                module: 'good-influx',
-                args: [process.env.INFLUXDB_URL || 'http://localhost:8086/write?db=good']
-            }]
+            ]
         }
     },
     analytics: {

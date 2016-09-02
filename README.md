@@ -1,5 +1,5 @@
 # Cache Manifest Validator
-[![Build Status][travis-image]][travis-url] [![Dependency Status][david-image]][david-url] [![devDependency Status][david-dev-image]][david-dev-url]
+[![Build Status][travis-image]][travis-url]
 
 An Node.js based validator for cache manifest files: [manifest-validator.com](http://manifest-validator.com)
 
@@ -22,7 +22,7 @@ Try out the interactive [Cache Manifest Validator API documentation](http://mani
 
 (The MIT-License)
 
-Copyright (c) 2011-2015 Frederic Hemberger
+Copyright (c) 2011-2016 Frederic Hemberger
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -44,7 +44,3 @@ THE SOFTWARE.
 
 [travis-image]: http://img.shields.io/travis/fhemberger/manifest-validator.svg
 [travis-url]: https://travis-ci.org/fhemberger/manifest-validator
-[david-image]: http://img.shields.io/david/fhemberger/manifest-validator.svg
-[david-url]: https://david-dm.org/fhemberger/manifest-validator
-[david-dev-image]: http://img.shields.io/david/dev/fhemberger/manifest-validator.svg
-[david-dev-url]: https://david-dm.org/fhemberger/manifest-validator#info=devDependencies

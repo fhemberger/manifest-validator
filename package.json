@@ -29,29 +29,28 @@
     "build:js": "uglifyjs public/tabs.js -cmo public/tabs.min.js"
   },
   "dependencies": {
-    "boom": "^3.2.1",
-    "clean-css": "^3.4.17",
+    "boom": "^4.0.0",
+    "clean-css": "^3.4.19",
     "ez-config": "^0.2.1",
-    "good": "^7.0.1",
+    "good": "^7.0.2",
     "good-console": "^6.1.2",
-    "good-influx": "^1.0.1",
     "good-squeeze": "^4.0.0",
-    "hapi": "^13.5.0",
-    "hapi-swagger": "glennjones/hapi-swagger#6f905bd27766debb0b2bc47f199ae69451ca5138",
-    "hoek": "^4.0.1",
-    "inert": "^4.0.0",
-    "joi": "^8.4.2",
+    "hapi": "^15.0.3",
+    "hapi-swagger": "^7.1.0",
+    "hoek": "^4.0.2",
+    "inert": "^4.0.2",
+    "joi": "^9.0.4",
     "ms": "^0.7.1",
-    "piwik-tracker": "^0.1.2",
+    "piwik-tracker": "^1.0.0",
     "pug": "^2.0.0-alpha7",
-    "request": "^2.72.0",
-    "requestretry": "^1.8.0",
-    "uglify-js": "^2.6.2",
+    "request": "^2.74.0",
+    "requestretry": "^1.10.0",
+    "uglify-js": "^2.7.3",
     "vision": "^4.1.0"
   },
   "devDependencies": {
-    "code": "^3.0.1",
-    "lab": "^10.8.2",
-    "sinon": "^1.17.4"
+    "code": "^3.0.2",
+    "lab": "^11.0.1",
+    "sinon": "^1.17.5"
   }
 }
