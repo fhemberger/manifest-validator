@@ -12,6 +12,7 @@ abbr, cite, del, dfn, em, img, ins, q, strong, ul, li, pre, code {
 }
 strong { font-weight: bold; }
 img { display: block; }
+p { margin-bottom: 1em; }
 ul {
   list-style: none;
   margin-bottom: 3em;
@@ -80,7 +81,6 @@ a.home {
   }
 
 
-
 #footer {
   margin: 3em 0;
   padding-top: 0.75em;
@@ -91,34 +91,55 @@ a.home {
   font-size: 0.7em;
 }
 
-#warning {
+.note {
     margin: 2em 0;
     padding: .5em 1em 1em;
     border-left-width: .5em;
     border-left-style: solid;
-    border-color: #E0CB52;
-    background: #FCFAEE;
     }
 
-    #warning h3 {
+    .note h3 {
         margin: 0.5em auto;
         font-size: inherit;
         border: 0 none;
-        color: #B9AB2D;
         text-transform: uppercase;
     }
 
-    #warning h4 {
+    .note h4 {
         margin: 1em auto 0.5em;
-        color: #B9AB2D;
         font-weight: normal;
     }
 
-    #warning ul {
+    .note p:last-child {
+        margin-bottom: 0;
+    }
+
+    .note ul {
         padding-left: 1.5em;
         list-style-type: initial;
         margin: 0
     }
+
+.note.message {
+    border-color: #E0CB52;
+    background: #FCFAEE;
+    }
+
+    .note.message h3,
+    .note.message h4 {
+        color: #B9AB2D;
+    }
+
+.note.issue {
+    border-color: #E05252;
+    background: #FBE9E9;
+    }
+
+    .note.issue h3,
+    .note.issue h4 {
+        color: #E05252;
+    }
+
 
 /* -- Tab elements --------------------------------------------------------- */
 #tab-header li {

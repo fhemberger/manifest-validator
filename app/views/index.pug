@@ -2,19 +2,20 @@ extends layout
 
 block content
 
-  #warning
+  .note.issue
     h3 Notice
     p
-      strong
-        | Appcache has been <a href="https://www.fxsitecompat.com/en-US/docs/2015/application-cache-api-has-been-deprecated/">
-        | marked as deprecated</a> since Firefox 44
-        | and will be <a href="https://www.fxsitecompat.com/en-US/docs/2016/application-cache-support-will-be-removed/">
-        | removed</a>, Chrome is likely to follow soon.
-        | It will also be removed from <a href="https://lists.w3.org/Archives/Public/public-html/2016May/0032.html">
-        | the future HTML spec</a>.<br>
-      | Now it's a good time to learn about Service Workers, which are providing a better programmatic interface for network requests and more granular control over handling offline resources.
+      | Appcache has been marked as deprecated in browsers and will be removed soon,
+      | also from <a href="https://lists.w3.org/Archives/Public/public-html/2016May/0032.html">
+      | the future HTML spec</a>.
+    p
+      | This service will shut down on <strong>January, 1st 2017</strong>.
+      | Code is available on <a href="https://github.com/fhemberger/manifest-validator/">GitHub</a>,
+      | but won't be maintained any longer.
 
-    h4 Service Worker API
+  .note.message
+    h3 Service Worker API
+    p Service Workers are providing a better programmatic interface for network requests and more granular control over handling offline resources.
     ul
       li
         a(href="https://slightlyoff.github.io/ServiceWorker/spec/service_worker/index.html") Service Workers Specification (Editor’s Draft)
