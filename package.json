@@ -26,7 +26,9 @@
     "coverage:html": "npm run coverage -- -r html -o coverage.html",
     "build": "npm run build:css; npm run build:js",
     "build:css": "cleancss -o public/validator.min.css public/validator.css",
-    "build:js": "uglifyjs public/tabs.js -cmo public/tabs.min.js"
+    "build:js": "uglifyjs public/tabs.js -cmo public/tabs.min.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "boom": "^4.0.0",
@@ -46,11 +48,13 @@
     "request": "^2.74.0",
     "requestretry": "^1.10.0",
     "uglify-js": "^2.7.3",
-    "vision": "^4.1.0"
+    "vision": "^4.1.0",
+    "snyk": "^1.19.1"
   },
   "devDependencies": {
     "code": "^3.0.2",
     "lab": "^11.0.1",
     "sinon": "^1.17.5"
-  }
+  },
+  "snyk": true
 }
