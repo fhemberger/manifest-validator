@@ -1,9 +1,19 @@
 # Cache Manifest Validator
-[![Build Status][travis-image]][travis-url]
+![Project is unmaintained](https://img.shields.io/badge/status-unmaintained-red.svg?style=flat-square)
 
-An Node.js based validator for cache manifest files: [manifest-validator.com](http://manifest-validator.com)
+An Node.js based validator for cache manifest files
 
-If you're looking for an easy way to create a manifest file for an existing project, try James Pearce's [confess.js](https://github.com/jamesgpearce/confess), a PhantomJS based tool to enumerate a web app's resources.
+> ### Notice
+> **Appcache has been marked as deprecated in browsers and will be removed soon, also from [the upcoming HTML spec](https://lists.w3.org/Archives/Public/public-html/2016May/0032.html). You can still use this project on your own, but the code and the website won't be maintained any longer.** Please use Service Worker instead, to make websites offline capable.
+>
+> ### Service Worker API
+> Service Workers are providing a better programmatic interface for network requests and more granular control over handling offline resources.
+>
+> - [Service Workers Specification (Editor’s Draft)](https://slightlyoff.github.io/ServiceWorker/spec/service_worker/index.html)
+> - [MDN: Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
+> - [HTML5 Rocks: Introduction to Service Worker](http://www.html5rocks.com/en/tutorials/service-worker/introduction/)
+> - [Is Service Worker ready?](https://jakearchibald.github.io/isserviceworkerready/index.html)
+> - [caniuse.com](http://caniuse.com/#feat=serviceworkers)
 
 
 ## Installation
@@ -14,8 +24,6 @@ Using [Node.js](http://nodejs.org/), first get all required dependencies with `n
 ## API
 
 The validation service can also be used by external tools. Either provide an URI to your manifest or the file's content as a string (GET and POST are supported). The API either returns a JSON or [JSONP](http://en.wikipedia.org/wiki/JSON#JSONP), when you provide the optional callback parameter.
-
-Try out the interactive [Cache Manifest Validator API documentation](http://manifest-validator.com/documentation).
 
 
 ## License
@@ -41,6 +49,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-
-[travis-image]: http://img.shields.io/travis/fhemberger/manifest-validator.svg
-[travis-url]: https://travis-ci.org/fhemberger/manifest-validator
